@@ -1,22 +1,22 @@
 ---
 id: Smart-Contract-Development-Toolkit
-title: Scaf: A Marvelous Smart Contract Development Toolkit
-sidebar_label: Scaf: A Marvelous Smart Contract Development Toolkit
+title: Scaf : Un merveilleux toolkit de développement de Smart Contract
+sidebar_label: Scaf : Un merveilleux toolkit de développement de Smart Contract
 ---
 
-## Features
+## Fonctionnalités
 
-Scaffold is designed to offer developers convenience when writing js smart contract for IOST blockchain. It features the following:
+Scaffold est conçu afin d'aider les développeurs lorsqu'ils écrivent des smart contracts js pour la blockchain IOST. Il offre les fonctionnalités suivantes :
 
-- Initializing a dapp project with appropriate structure
-- Commands to init contract files, add functions and add tests for contract easily
-- Mocked system functions (including blockchain functions and storage functions) are embedded to test contract properly
-- Compiling contract file to generate valid contract and abi file which can be uploaded to blockchain directly
-- Running test cases for a contract
+- Initialisation de projet dapp avec structure appropriée
+- Commandes permettant l'initialisation des fichiers du contrat, l'ajout simple de fonctions et de tests pour le contrat
+- Simulation de fonctions système (incluant les fonctions blockchain et de stockage) incluses afin de tester correctement le contrat
+- Compilation du fichier du contrat afin de générer un contrat et un fichier abi valides qui peuvent être uploadés directement sur la blockchain
+- Scénarios tests pour le contrat
 
-## Install and Setup
+## Installation et paramétrage
 
-Before you start, make sure you have node and npm installed on your computer.
+Avant de commencer, assurez vous d'avoir node et npm installés sur votre ordinateur.
 
 1. `git clone git@github.com:iost-official/dapp.git`
 
@@ -26,15 +26,15 @@ Before you start, make sure you have node and npm installed on your computer.
 
 4. `sudo npm link`
 
-## Commands
+## Commandes
 
-`help` is printed when entering specific commands.
+`help` est affichée lors de l'utilisation de commandes spécifiques.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp$ scaf
 Usage: scaf <cmd> [args]
 
-Commands:
+Commandes :
   scaf new <name>      create a new DApp in current directory
   scaf add <item>      add a new [contract|function]
   scaf compile <name>  compile contract
@@ -62,7 +62,7 @@ Not enough non-option arguments: got 0, need at least 1
 ```
 
 ## Hello BlockChain
-### Create a new project
+### Créer un nouveau projet
 
 ```
 scaf new <contract_name>
