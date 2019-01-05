@@ -11,7 +11,7 @@ Le déploiement a lieu en plusieurs étapes :
 - Compiler le js afin de générer un fichier ABI
 - Modification du fichier ABI
 - Utiliser les fichiers .js et .abi pour générer le fichier container .sc
-- Distribuer les fichiers .sc aux signeurs qui généreront les fichiers .sig
+- Distribuer les fichiers .sc aux signataires qui généreront les fichiers .sig
 - Collecter les fichiers .sig et .sc afin de les publier sur la chaîne
 
 ### Compiler le js pour générer le fichier ABI
