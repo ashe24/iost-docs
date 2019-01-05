@@ -1,33 +1,33 @@
 ---
 id: Environment-setup
-title: Environment setup
-sidebar_label: Environment setup
+title: Installation de l'environnement
+sidebar_label: Installation de l'environnement
 ---
 
-Currently, IOST smart contracts programming depends on [go-iost](https://github.com/iost-official/go-iost).
+Pour le moment, les smart contracts IOST dépendent de [go-iost](https://github.com/iost-official/go-iost).
 
-In the future, IOST will become independent of go-iost.
+Dans le future IOST sera indépendant de go-iost.
 
-Developers needs to clone the entire branch:
+Les développeurs doivent cloner la branche complète :
 
 ```shell
 git clone https://github.com/iost-official/go-iost.git
 ```
 
-Then, install `node` and `npm` in the directory `go-iost/iwallet/contract`.
+Puis, installer `node` et `npm` dans le répertoire `go-iost/iwallet/contract`.
 
-## Install ```Node```
+## Installer ```Node```
 
-Please refer to [Official Documents](https://nodejs.org/zh-cn/download/package-manager/#macos)
+Se référer à [Official Documents](https://nodejs.org/zh-cn/download/package-manager/#macos)
 
-## Install```npm```
+## Installer ```npm```
 
 ```git
 cd go-iost/iwallet/contract
 npm install
 ```
 
-## Install```Dynamic Library```
+## Installer ```Dynamic Library```
 
 ```git
 cd go-iost
