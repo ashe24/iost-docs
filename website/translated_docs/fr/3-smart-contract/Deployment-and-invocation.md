@@ -1,39 +1,39 @@
 ---
 id: Deployment-and-invocation
-title: Deployment and invocation
-sidebar_label: Deployment and invocation
+title: Déploiement et appel
+sidebar_label: Déploiement et appel
 ---
 
-When we finish a JavaScript smart contract, we need to deploy it on the chain.
+Une fois un smart contract JavaScript terminé, il est nécessaire de le déployer sur la chaîne.
 
-Deployment takes a few steps:
+Le déploiement a lieu en plusieurs étapes :
 
-- Compile js to generate ABI file
-- Modify ABI file
-- Use .js and .abi files to generate the .sc packer file
-- Distribute .sc files to each signer, and signers will generate .sig files
-- Collect .sig files and the .sc files, and publish them on chain
+- Compiler le js afin de générer un fichier ABI
+- Modification du fichier ABI
+- Utiliser les fichiers .js et .abi pour générer le fichier container .sc
+- Distribuer les fichiers .sc aux signeurs qui généreront les fichiers .sig
+- Collecter les fichiers .sig et .sc afin de les publier sur la chaîne
 
-### Compile js to generate ABI file
+### Compiler le js pour générer le fichier ABI
 
-Deployment needs the iWallet program in the project. I'm sure you have already compiled an iWallet program from the documents, in the `go-iost/target` directory.
+Le programme iWallet est nécessaire dans le projet pour le déploiement. Je suis sur que vous avez déjà compilé un programme iWallet à partir des documents dans le répertoire `go-iost/target`.
 
-First, use iWallet to compile the js codes into corresponding ABIs.
+Tout d'abord utiliser iWallet pour compiler le code js en fichiers ABIs correspondants.
 
 ```bash
-# Generate ABI for target js
+# Générer un fichier ABI pour un fichier js cible
 ./iwallet compile -g jsFilePath
 ```
 
-This will generate .js.abi files and .js.after files.
+Ceci va générer des fichiers .js.abi et .js.after.
 
-### Modify ABI file
-Currently, the .abi file still needs some modifications. Mainly check the following items:
+### Modification de fichier ABI
+Pour l'instant, le fichier .abi nécessite encore des modifications. Il est nécessaire de contrôler les éléments suivants :
 
-- Check abi field not null
-- Modify the "abi" field in .abi file, change every filed in `args` into correct type
+- Vérifier que le champ abi field n'est pas null
+- Modifier le champ "abi" dans le fichier .abi, corriger chaque type dans `args`.
 
-#### Example
+#### Exemple
 ```json
 {
     "lang": "javascript",
@@ -51,16 +51,16 @@ Currently, the .abi file still needs some modifications. Mainly check the follow
 }
 ```
 
-### Collect .sig files and the .sc files, and publish them on chain
-Finally, use ```.js``` file and ```.abi``` file to deploy the contract to chain.
+### Collecter les fichiers .sig et .sc afin de les publier sur la chaîne
+Enfin utiliser les fichiers ```.js``` et ```.abi``` pour déployer le contrat.
 
 ```bash
-# publish a transaction with .sig file from every signer
+# publier une transaction avec fichier .sig de chaque signataire
 ./iwallet --server serverIP --account acountName --amount_limit amountLimit publish jsFilePath abiFilePath
-# Example
+# Exemple
 iwallet --server 127.0.0.1:30002 --account admin --amount_limit  "ram:100000" publish contract/lucky_bet.js contract/lucky_bet.js.abi
 ...
 
-#Return
+# Retour
 The contract id is ContractBgHM72pFxE9KbTpQWipvYcNtrfNxjEYdJD7dAEiEXXZh
 ```
