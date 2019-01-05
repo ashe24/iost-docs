@@ -41,11 +41,11 @@ Dans ce miroir, tous les IOST sont mis sur un compte initial, avec 21.000.000.00
 ./iwallet call iost.system Transfer '["IOSTfQFocqDn7VrKV7vvPqhAQGyeFU9XMYo5SNn5yQbdbzC75wM7C", "IOSTfQFocqDn7VrKV7vvPqhAQGyeFU9XMYo5SNn5yQbdbzC75wM7C", 100]' --signers "IOSTfQFocqDn7VrKV7vvPqhAQGyeFU9XMYo5SNn5yQbdbzC75wM7C"
 ```
 
-Ceci va générer le fichier de transaction `iost.sc`. Afin de publier ce contrat sur la chaine, nous devons suivre le workflow établi dans *Deployment and invocation*.
+Ceci va générer le fichier de transaction `iost.sc`. Afin de publier ce contrat sur la chaine, nous devons suivre le workflow établi dans *Déploiement et appel*.
 
 ## Publier un contrat sur la chaine locale
 
-Se référer a *Deployment and invocation*.
+Se référer a *Déploiement et appel*.
 
 ## Vérifier si le contrat est présent sur la chaine
 
