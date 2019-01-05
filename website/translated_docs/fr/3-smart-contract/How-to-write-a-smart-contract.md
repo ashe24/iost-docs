@@ -1,46 +1,46 @@
 ---
 id: How-to-write-a-smart-contract
-title: How to Write a Smart Contract
-sidebar_label: How to Write a Smart Contract
+title: Comment écrire un Smart Contract
+sidebar_label: Comment écrire un Smart Contract
 ---
 
-## Basic Information
+## Informations de base
 
-### Language supported
+### Langages supportés
 
-Currently, IOST smart contracts supports JavaScript.
+Pour l'instant, les smart contracts IOST supportent le JavaScript.
 
-### Runtime environment
+### Environnement
 
-Internally, IOST employs [Chrome V8](https://developers.google.com/v8/) engine to run the contracts.
+En interne, IOST le moteur [Chrome V8](https://developers.google.com/v8/) pour exécuter les contrats.
 
-## Smart Contract Programming Guides
+## Guides de programmation de smart contracts
 
-### Implementing smart contracts
+### Implémentation de smart contracts
 
-In IOST, smart contracts will be coded into a JavaScript `class`. When using it, you need to explicitly `export` the class.
+Chez IOST, les smart contracts seront codés à l'intérieur d'une `classe` JavaScript. Lors de son utilisation il est nécessaire d'explicitement `exporter` la classe.
 
-#### Structure of a smart contract
+#### Structure d'un smart contract
 
-A smart contract class must include `Init` and `Constructor` functions.
+Une classe de smart contract doit inclure les fonctions `Init` et `Constructor`.
 
-- `Init` is run when a contract is deployed. It usually contains code to initialize properties of the contract.
-- `Construct` is run when a contract is called. It's usually used to initialize classes of the smart contract, and read persistent smart contract data.
+- `Init` est exécutée quand un contrat est déployé. Elle contient généralement le code nécessaire à l'initialisation des propriétés du contrat.
+- `Constructor` est exécutée quand un contrat est appelé. Elle est généralement utilisée pour initialiser les classes d'un smart contract, et pour lire les données persistentes d'un smart contract.
 
-Apart from these two functions, developers can define other functions as needed. Below is a template of a simple smart contract that has `Transfer` functionalities.
+En dehors de ces deux fonctions, les développeurs peuvent définir toutes les autres fonctions selon leurs besoins. Vous trouverez ci-dessous un template de smart contract simple qui a une fonction `Transfert`.
 
 ```javascript
 class Test {
     init() {
-        //Execute once when contract is packed into a block
+        //S'exécute une fois que le contrat est intégré dans un block
     }
 
     constructor() {
-        //Execute everytime the contract class is called
+        //S'exécute une fois que le contrat est appelé
     }
 
-    transfer(from, to, amount) {
-        //Function called by other
+    transfert(from, to, amount) {
+        //Fonction appelée par une autre
         BlockChain.transfer(from, to, amount)
 
     }
@@ -49,14 +49,13 @@ class Test {
 module.exports = Test;
 ```
 
-## Using an Internal Class
+## Utiliser une classe interne
 
-### IOSTContra
-ctStorage Class
+### Classe IOSTContractStorage
 
-All variables will be stored in memory in runtime. IOST provides `IOSTContractStorage` class to help developers persist data in smart contracts.
+Toutes les variables seront stockées en mémoire pendant l'exécution. IOST offre la classe `IOSTContractStorage` afin d'aider les développeurs à intégrer des données persistentes dans leurs smart contracts.
 
-Developers may use this class to synchronize data during multiple contract calls.
+Les développeurs peuvent utiliser cette classe pour synchroniser des données lors de l'appel de multiples contrats.
 
 ```javascript
 let IOSTContractStorage = (function () {
@@ -133,7 +132,7 @@ let IOSTContractStorage = (function () {
         // map Delete a (k, f) pair. use k + f to delete value.
         // mapDel(key, field)
         mapDel: mapStorageObj.mapDel,
-        // currently not suportted, dont't use.
+        // currently not suportted, don't use.
         globalGet: globalStorageObj.get,
     }
 })();
@@ -142,64 +141,64 @@ module.exports = IOSTContractStorage;
 
 ```
 
-### BlockChain class
+### Classe BlockChain
 
-BlockChain class provides all methods for the system to call, and helps the user to call official APIs, including but not limited to transfering, wiring money, calling other contracts, and looking up a block or transaction.
+La classe BlockChain propose toutes les méthodes d'appel système et aide l'utilisateur à appeler des APIs officielles, y compris celles de transfert, virement d'argent, appel d'autres contrats, recherche d'un bloc ou d'une transaction.
 
-Detailed interfaces are listed below:
+Les interfaces détaillées sont listées ci-dessous :
 
 ```javascript
 let BlockChain = (function () {
     let bc = new IOSTBlockchain;
     return {
-        // transfer IOS
+        // transférer des IOST
         transfer: function (from, to, amount) {
             if (!(amount instanceof Int64)) {
                 amount = new Int64(amount);
             }
             return bc.transfer(from, to, amount.toString());
         },
-        // withdraw IOST
+        // retirer des IOST
         withdraw: function (to, amount) {
             if (!(amount instanceof Int64)) {
                 amount = new Int64(amount);
             }
             return bc.withdraw(to, amount.toString());
         },
-        // deposit IOST
+        // déposer IOST
         deposit: function (from, amount) {
             if (!(amount instanceof Int64)) {
                 amount = new Int64(amount);
             }
             return bc.deposit(from, amount.toString());
         },
-        // put IOST into contract
+        // mettre des IOST dans un contrat
         topUp: function (contract, from, amount) {
             if (!(amount instanceof Int64)) {
                 amount = new Int64(amount);
             }
             return bc.topUp(contract, from, amount.toString());
         },
-        // get IOST from contract
+        // récupérer les IOST d'un contrat
         countermand: function (contract, to, amount) {
             if (!(amount instanceof Int64)) {
                 amount = new Int64(amount);
             }
             return bc.countermand(contract, to, amount.toString());
         },
-        // get blockInfo
+        // obtenir blockInfo
         blockInfo: function () {
             return bc.blockInfo();
         },
-        // get transactionInfo
+        // obtenir transactionInfo
         txInfo: function () {
             return bc.txInfo();
         },
-        // call contract's api using args
+        // appeler l'api d'un contrat à l'aide d'arguments
         call: function (contract, api, args) {
             return bc.call(contract, api, args);
         },
-        // call contract's api using args with receipt
+        // appeler l'api d'un contrat à l'aide d'arguments et d'un reçu
         callWithReceipt: function (contract, api, args) {
             return bc.callWithReceipt(contract, api, args);
         },
@@ -207,7 +206,7 @@ let BlockChain = (function () {
         requireAuth: function (pubKey) {
             return bc.requireAuth(pubKey);
         },
-        // not supportted
+        // non supportée
         grantServi: function (pubKey, amount) {
             return bc.grantServi(pubKey, amount.toString());
         }
@@ -218,9 +217,9 @@ module.exports = BlockChain;
 ```
 
 
-### Int64 Type
+### Type Int64
 
-Currently, IOST only support big numbers of type `Int64`. Please refrain from using other number types.
+Pour l'instant, IOST ne supporte que les grands nombres de type `Int64`. Veuillez vous abstenir d'utiliser d'autres types.
 
 ```javascript
 'use strict';
@@ -234,7 +233,7 @@ class Int64 {
         this._validate();
     }
 
-    // Check is int64 (Interger that greater than MinInt64, less than MaxInt64)
+    // Vérifie si int64 (Integer plus grand que MinInt64, plus petit que MaxInt64)
     _validate() {
         if (!this.number.isInteger()) {
             throw new Error('Int64: ' + this.number + ' is not an integer');
@@ -249,7 +248,7 @@ class Int64 {
         }
     }
 
-    // Check is argument int64
+    // Vérifie si l'argument est int64
     _checkArgument(arg) {
         if (typeof arg === 'undefined' || arg == null) {
             throw new Error('Int64 argument: ' + arg + ' is empty');
@@ -271,7 +270,7 @@ class Int64 {
         return new this.constructor(rs);
     }
 
-    // minus n
+    // moins n
     minus(n) {
         let arg = this._checkArgument(n);
         let rs = this.number.minus(arg.number);
@@ -299,37 +298,37 @@ class Int64 {
         return new this.constructor(rs);
     }
 
-    // Power n
+    // Puissance n
     pow(n) {
         let arg = this._checkArgument(n);
         let rs = this.number.pow(arg.number);
         return new this.constructor(rs);
     }
 
-    // Check equal n
+    // égal a n
     eq(n) {
         this._checkArgument(n);
         return this.number.eq(n.number);
     }
 
-    // Check greater than n
+    // plus grand que n
     gt(n) {
         this._checkArgument(n);
         return this.number.gt(n.number);
     }
 
-    // Check less than n
+    // plus petit que n
     lt(n) {
         this._checkArgument(n);
         return this.number.lt(n.number);
     }
 
-    // Check is Zero
+    // vérifie si nul
     isZero() {
         return this.number.isZero();
     }
 
-    // convert to String
+    // conversion en string
     toString() {
         return this.number.toString();
     }
