@@ -4,7 +4,7 @@ title: Mise à Jour du Contrat
 sidebar_label: Mise à Jour du Contrat
 ---
 
-## Features
+## Fonctionnalité
 
 Une fois le contrat déployé sur la blockchain, le développeur peut souhaiter lui apporter des modifications, telles que des bugfix, des mises à jours, etc.
 
@@ -79,12 +79,12 @@ Remarquez l'Implémentation de la fonction can_update() dans le fichier contrat,
 
 ### Déployer le contrat
 
-Se référer à [Deployment-and-invocation](../3-smart-contract/Deployment-and-invocation)
+Se référer à [Déploiement et appel](../3-smart-contract/Deployment-and-invocation)
 
-Remember to record contractID like ContractHDnNufJLz8YTfY3rQYUFDDxo6AN9F5bRKa2p2LUdqWVW
+Bien penser à enregistrer le contractID tel que ContractHDnNufJLz8YTfY3rQYUFDDxo6AN9F5bRKa2p2LUdqWVW
 
-### Update Contract
-First edit the contract file helloContract.js to generate a new contract code as follows:
+### Mettre à jour le contrat
+D'abord éditer le fichier contrat helloContract.js afin de générer un nouveau code comme suit :
 ```js
 class helloContract
 {
@@ -106,13 +106,13 @@ class helloContract
 };
 module.exports = helloContract;
 ```
-We modified the implementation of the hello() function to change the contents of the "message" written to the database to "update block chain".
+Nous avons modifié l'implémentation de la fonction hello() pour changer le contenu du "message" écrit dans la base de données pour "mettre à jour la blockchain".
 
-Use the following command to upgrade your smart contract:
+Utiliser la commande suivant pour mettre à jour le smart contract :
 
 ```console
 ./iwallet compile -u -e 3600 -l 100000 -p 1 ./helloContract.js ./helloContract.json <合约ID> <can_update 参数> -k ~/.iwallet/update_ed25519
 ```
--u indicates to update contract, -k indicates the private key used for signing and publishing, here the account `update` is used to authorize the transaction
+-u indique de mettre à jour le contrat, -k spécifie la clé privée utilisée pour la signature et la publication. Ici le compte `update` est utilisé pour autoriser la transaction
 
-After the transaction is confirmed, you can call the hello() function via iwallet and check the contents of the database "message" to see the content changes.
+Une fois la transaction confirmée, il est possible d'appeler la fonction hello() via iwallet et de vérifier le contenu du "message" dans la base de données pour voir le changement de contenu.
