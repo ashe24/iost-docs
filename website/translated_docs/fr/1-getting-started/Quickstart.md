@@ -1,22 +1,22 @@
 ---
 id: Quickstart
-title: Quickstart
-sidebar_label: Quickstart
+title: Premiers Pas
+sidebar_label: Premiers Pas
 ---
 
-## Architecture Design
-- [Design of Smart Contract](2-intro-of-iost/Smart-contract.md)
-- [Design of VM](2-intro-of-iost/VM.md)   
-- [Design of Storage](2-intro-of-iost/Database.md)   
-- [Design of Network](2-intro-of-iost/Network-layer.md)   
+## Design de l'architecture
+- [Design du Smart Contract](2-intro-of-iost/Smart-contract.md)
+- [Design de la VM](2-intro-of-iost/VM.md)   
+- [Design du stockage](2-intro-of-iost/Database.md)   
+- [Design du réseau](2-intro-of-iost/Network-layer.md)   
 
-## How to Start Contract Development
-For developers who want to develop smart contract on IOST, we provide a step-by-step [realworld example](5-lucky-bet/Design-Tech-data.md). It introduces how to deploy and run contracts.   
+## Comment commencer le développement de Smart Contract
+Pour les développeurs souhaitant développer des smart contract sur IOST nous proposons [exemple a application réelle](5-lucky-bet/Design-Tech-data.md). Celui-ci explique comment déployer et exécuter les contrats.
 
-You can also ask questions on our [official forum](https://forum.iost.io).
+Vous pouvez aussi nous poser des questions sur notre [forum officiel](https://forum.iost.io).
 
 
-## How to join IOST Network
-For developers who want to join IOST network as a node，the [Access the Testnet](4-running-iost-node/Deployment.md) documentation may be helpful.
+## Comment rejoindre le réseau IOST
+Pour les développeurs souhaitant rejoindre le réseau en tant que nœud, la documentation [accéder au Tesnet](4-running-iost-node/Deployment.md) peut être utile.
 
-If you want to publish smart contracts on IOST，you need some initial coins to pay for gas. You can apply for the initial coins [here](4-running-iost-node/Faucet.md).
+Si vous souhaitez publier des smart contracts sur IOST vous aurez besoin de tokens pour payer pour le gas. Vous pouvez candidater pour obtenir des tokens [ici](4-running-iost-node/Faucet.md).

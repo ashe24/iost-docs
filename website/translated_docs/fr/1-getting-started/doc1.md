@@ -1,19 +1,19 @@
 ---
 id: doc1
-title: Overview
-sidebar_label: Overview
+title: Présentation
+sidebar_label: Présentation
 ---
 
-Welcome to IOST documentations!
+Bienvenue sur la documentation IOST !
 
-IOST is a new generation of high-performance public blockchains. The infrastructure is scalable, stable and allows low level customization for different business requirements. After the launch of IOST Testnet, we have welcomed many new developers to the IOST technical community.
+IOST est une blockchain publique haute performance de nouvelle génération. L'infrastructure est évolutive, stable et permet une personnalisation de bas niveau pour différents besoins. Après le lancement du Testnet IOST, nous avons accueilli de nombreux nouveaux développeurs dans la communauté technique IOST.
 
-These documentations are an entry point to IOST ecosystem for new developers as well as those who are experienced. The documentations are maintained both by the IOST community and by the core team — your help is always welcome! The documentation serves the purpose of providing a clear understanding of IOST technology and ecosystem.
+Ces documentations sont un point d'entrée à l'écosystème IOST pour les nouveaux développeurs ainsi que pour ceux qui ont de l'expérience. Les documentations sont maintenues à la fois par la communauté IOST et par l'équipe centrale - votre aide est toujours la bienvenue ! La documentation a pour but de fournir une compréhension claire de la technologie et de l'écosystème IOST.
 
-There are some prerequisites to get started with development on the IOST networks:
+Il y a certaines conditions préalables pour commencer à développer les réseaux IOST :
 
-* Mainstream coding and development experience
-* No need for previous Blockchain development experience
-* Understanding of IOST basics or your business scenario/requirements
+* Expérience de développement et de codage en général
+* Pas besoin d'expérience préalable dans le développement Blockchain
+* Compréhension des bases de IOST ou des exigences de votre entreprise
 
-We sincerely welcome developers to IOST!
+Nous souhaitons sincèrement la bienvenue aux développeurs IOST !
