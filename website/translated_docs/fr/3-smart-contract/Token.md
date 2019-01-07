@@ -1,24 +1,24 @@
 ---
 id: Token
-title: Create Token
-sidebar_label: Create Token
+title: Créer un Token
+sidebar_label: Créer un Token
 ---
 ## Token20
 
-Token20 is our standard for implementing token on iost blockchain. It includes several practical features beyond transfer,
-such as freeze token, destroy token and can be configured carefully.
+Token20 est notre standard pour l'implémentation de tokens sur la blockchain IOST. Il inclut plusieurs fonctions pratiques en plus du transfert,
+comme le gel, la destruction et doit être configuré avec attention.
 
-`iost` is also implemented according to Token20 standard based on out build-in system contract `token.iost`.
-The interfaces of `token.iost` are described as follows:
+`iost` est aussi implémenté selon le standard Token20, basé sur notre contrat système intégré `token.iost`.
+Les interfaces de `token.iost` sont décrites comme suit :
 
 ```js
-// create tokenSymbol
+// créer tokenSymbol
 create(tokenSymbol, issuer, totalSupply, configJson);	// string, string, number, json
 issue(tokenSymbol, to, amountStr);						// string, string, string
 transfer(tokenSymbol, from, to, amountStr, memo);		// string, string, string, string, string
 transferFreeze(tokenSymbol, from, to, amountStr, unfreezeTime, memo);		// string, string, string, string, number, string
 destroy(tokenSymbol, from, amountStr);					// string, string, string
-// query interfaces
+// Appeler interfaces
 balanceOf(tokenSymbol, from);							// string, string
 supply(tokenSymbol);									// string
 totalSupply(tokenSymbol);								// string
@@ -26,20 +26,20 @@ totalSupply(tokenSymbol);								// string
 ### create(tokenSymbol, issuer, totalSupply, configJson)
 `Authority required: issuer`
 
-TokenSymbol is the unique identifier of a specific token, that is, you can't create a token in `token.iost` contract with a tokenSymbol used before.
-It's a string with length between 2 and 16, and only consists of character `a-z`, `0-9` and `_`.
+TokenSymbol est l'identifiant unique d'un token spécifique, c'est à dire qu'il n'est pas possible de créer un token dans le contrat `token.iost` avec un tokenSymbol déjà utilisé.
+Il s'agit d'un string d'une longueur entre 2 et 16 qui accepte les caractères `a-z`, `0-9` et `_`.
 
-Issuer is the issuer of the token, only issuer has permission to issue token to arbitrary account.
-Normally issuer of a token is an account, but it also can be a contract. 
-When the issuer is a contract ID, that means, only this contract has permission to call `issue` method to issue token to others.
-Let's say, token `mytoken`'s issuer is contract `Contractabc`, then `Contractabc` can call `issue` to issue `mytoken`,
-`Contractabc` can also call a function in `Contractdef`, and `Contractdef` thus has permission to issue `mytoken`.
-That is it, permission of a contract can be deliveried to the contract it called, you need to use system function `blockchain.callWithAuthority` instead of
-`blockchain.call` when calling another contract to delivery the permission.
+Issuer est l'émetteur du token. Seul l'émetteur à l'autorisation d'émettre des tokens vers un compte arbitraire.
+Normalement l'émetteur d'un token est un compte, mais il peut aussi s'agir d'un contrat.
+Lorsque l'émetteur est un ID de contrat, cela signifie quel seul le contrat a la possibilité d'appeler la méthode  `issue` afin d'émettre des tokens vers un tiers.
+Disons que l'émetteur du token `mytoken` est le contrat `Contractabc`, alors `Contractabc` peut appeler `issue` afin d'émettre `mytoken`,
+`Contractabc` peut donc appeler une fonction dans `Contractdef`, et `Contractdef` et peut donc émettre des tokens `mytoken`.
+Pour que l'autorisation d'un contrat puisse être donnée par le contrat appelé, il faut utiliser la fonction système `blockchain.callWithAuthority` au lieu de
+`blockchain.call` lors de l'appel du contrat pour permettre l'autorisation.
 
-TotalSupply is a int64 number, issuer can not issue token more than totakSupply.
+TotalSupply est un nombre int64, l'émetteur ne peut pas émettre plus de tokens que TotalSupply.
 
-ConfigJson is a json consists of the config for the token. Here is all the supported config properties:
+ConfigJson est un fichier json qui constitue la configuration du token. Voici les propriétés supportées :
 ```console
 {
 	"decimal": number between 0~19,
@@ -51,46 +51,46 @@ ConfigJson is a json consists of the config for the token. Here is all the suppo
 ### issue(tokenSymbol, acc, amountStr)
 `Authority required: issuer of tokenSymbol`
 
-Issue tokenSymbol to `acc` account, amountStr is a string refers to the amount to issue, the amount must be a positive fixed-point decimal like "100", "100.999"
+Emettre tokenSymbol vers le compte `acc`, amountStr est un string qui réfère à la quantité à émettre, le montant doit être un nombre positif à décimale fixe comme "100", "100.999"
 
 ### transfer(tokenSymbol, accFrom, accTo, amountStr, memo)
 `Authority required: accFrom`
 
-Transfer tokenSymbol from `accFrom` to `accTo` with amountStr and memo,
-amount must be a positive fixed-point decimal, and memo is an additional string message of this transfer operation with length no more than 512 bytes.
+Le transfert de token tokenSymbol de `accFrom` vers `accTo` avec amountStr et memo,
+amount doit être un nombre positif à décimale fixe, et memo est un message string additionnel pour le transfert d'une longueur maximale de 512 bytes.
 
 ### transferFreeze(tokenSymbol, accFrom, accTo, amountStr, unfreezeTime, memo)
 `Authority required: accFrom`
 
-Transfer tokenSymbol from `accFrom` to `accTo` with amountStr and memo, and freeze this part of token until unfreezeTime.
-The unfreezeTime is the nanoseconds of unix time after which the token will be unfreezed. 
+Transférer le token tokenSymbol de `accFrom` vers `accTo` avec amountStr and memo, et le geler jusque unfreezeTime.
+unfreezeTime est le nombre de nanosecondes en temps unix après lesquelles le token sera degelé.
 
 ### destroy(tokenSymbol, accFrom, amountStr)
 `Authority required: accFrom`
 
-Destroy amountStr of token in `accFrom` account. After destroy, the supply of this token will decrease a same account, that means,
-you can issue more token in the presense of the totalSupply by destroying some tokens.
+Détruire amountStr du token dans le compte `accFrom`. Après la destruction, le supply de ce token sera réduit du montant équivalent, cela signifie
+qu'il est possible d'émettre de nouveaux tokens par rapport au totalsupply en en ayant détruit.
 
 ### balanceOf(tokenSymbol, acc)
 `Authority required: null`
 
-Query the balance of an account of a specific token.
+S'enquérir du solde d'un token spécifique.
 
 ### supply(tokenSymbol)
 `Authority required: null`
 
-Query the supply of a specific token.
+S'enquérir du supply d'un token spécifique.
 
 ### totalSupply(tokenSymbol)
 `Authority required: null`
 
-Query the totalSupply of a specific token.
+S'enquérir du totalsupply d'un token spécifique.
 
 
-## Step-by-Step Example
-Creating a `Token20` on iost blockchain is remarkably simple, you can just call `token.iost` contract without implementing Token20 interfaces and deploying smart contract yourself.
+## Exemple étape par étape
+Créer un `Token20` sur la blockchain iost est très simple, il suffit d'appeler le contrat `token.iost` sans implémenter d'interfaces Token20et de déployer vous même le smart contract.
 
-Below is a step-by-step example describes how to create a token using `bank` account and transfer token between accounts, you need to create account `bank`, `user0`, `user1` first.
+Ci-dessous un exemple détaillé de comment créer un token en utilisant le compte `bank` et transférer le token entre comptes. Il faut pour cela d'abord créer les comptes `bank`, `user0`, `user1`.
 
 ```console
 iwallet call token.iost create '["mytoken", "bank", 21000000000, {"decimal": 8, "fullName": "token for test"}]' --account bank

@@ -1,35 +1,35 @@
 ---
 id: Update-Contract
-title: Update Contract
-sidebar_label: Update Contract
+title: Mise à Jour du Contrat
+sidebar_label: Mise à Jour du Contrat
 ---
 
 ## Features
 
-After the contract is deployed to the blockchain, developers may face the need to update the contract, such as fixing bugs, version upgrades, etc.
+Une fois le contrat déployé sur la blockchain, le développeur peut souhaiter lui apporter des modifications, telles que des bugfix, des mises à jours, etc.
 
-We provide a complete contract update mechanism that allows developers to easily update smart contract by sending a transaction.
-More importantly, we provide very flexible update permission control to meet any permission requirements.
+Nous proposons un mécanisme de mise à jour complet qui permet de facilement mettre à jour un smart contract via l'envoi d'une transaction.
+Plus important, nous proposons un contrôle de permission flexible permettant de se conformer à n'importe quel besoin.
 
-In order to update the smart contract, you need to implement a function in the smart contract:
+Afin de pouvoir mettre à jour le smart contract, il est nécessaire d'implémenter la fonction suivante :
 ```js
 can_update(data) {
 }
 ```
 
-When receiving a request to update the contract, the system will first call the can_update(data) function of the contract. data is an optional input parameter of type string. If the function returns true, the contract update is executed. Otherwise, a `Update Refused` error is returned.
+Lors de la réception d'une requête de mise à jour de contrat, le système va d'abord appeler la fonction can_update(data). data est un paramètre d'entrée facultatif de type string. Si la fonction renvoie true, la mise à jour est effectuée. Si non, une erreur `Update Refused` est renvoyée.
 
-By properly writing this function, you can implement any permission management requirements, such as:only update when two people authorize at the same time, or some people vote to decide whether to update the contract, etc.
+Avec l'écriture correcte de cette fonction il est possible d'implémenter une gestion des permissions telle que : seulement mettre à jour lorsque deux personnes l'autorisent en même temps, ou via un vote, etc.
 
-If the function is not implemented in the contract, the contract is not allowed to update by default.
+Si la fonction n'est pas implémentée dans le contrat, celui-ci n'est pas autorisée à se mettre à jour par défaut.
 
 ## Hello BlockChain
 
-Below we take a simple smart contract as an example to illustrate the process of contract update.
+Ci-dessous nous prenons un smart contract simple comme exemple pour illustrer ce processus.
 
-### Create Contract
+### Création du Contrat
 
-First create an account update using `iwallet` command, record the account ID returned on the screen
+Tout d'abord créer un compte de mise à jour à l'aide de la commande `iwallet`, enregistrer le ID renvoyé sur l'écran
 ```console
 ./iwallet account -n update
 return:
@@ -37,7 +37,7 @@ the iost account ID is:
 IOSTURXazDVc1hJ9R9HdFxt2PivzKxUdUaN1A7rgRkoBDMJZ9qj2h
 ```
 
-Create a new contract file helloContract.js and its corresponding ABI file helloContract.json with following content
+Créer un nouveau fichier contrat helloContract.js et son fichier ABI helloContract.json correspondant avec le contenu suivant
 ```js
 class helloContract
 {
@@ -75,11 +75,11 @@ module.exports = helloContract;
     ]
 }
 ```
-Look at the can_update() function implementation in the contract file, which allows the contract to be updated only when using the adminID account authorization.
+Remarquez l'Implémentation de la fonction can_update() dans le fichier contrat, qui permet la mise à jour uniquement lorsque l'autorisation adminID est utilisée.
 
-### Deploy Contract
+### Déployer le contrat
 
-Please refer to [Deployment-and-invocation](../3-smart-contract/Deployment-and-invocation)
+Se référer à [Deployment-and-invocation](../3-smart-contract/Deployment-and-invocation)
 
 Remember to record contractID like ContractHDnNufJLz8YTfY3rQYUFDDxo6AN9F5bRKa2p2LUdqWVW
 

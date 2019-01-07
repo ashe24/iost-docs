@@ -68,7 +68,7 @@ Not enough non-option arguments: got 0, need at least 1
 scaf new <contract_name>
 ```
 
-The project is generated in the current directory, with initialized structure.
+Le projet est généré dans le répertoire actuel, avec une structure initialisée.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp$ scaf new helloBlockChain
@@ -82,14 +82,14 @@ usr@Tower [master]:~/nodecode/dapp$ ls helloBlockChain/
 abi  contract  libjs  test
 ```
 
-### Add a contract
+### Ajouter un contrat
 
 ```
 cd <contract_name>
 scaf add contract <contract_name>
 ```
 
-`add <item>` command should be executed in project directory. Contract file `helloContract.js` and ABI file `helloContract.json` is generated with following initial content:
+La commande `add <item>` devrait être exécutée dans le répertoire du projet. Le fichier projet `helloContract.js` et le fichier ABI `helloContract.json` sont générés avec les contenu initial suivant :
 
 ```js
 usr@Tower [master]:~/nodecode/dapp$ cd helloBlockChain/
@@ -122,17 +122,17 @@ usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ cat abi/helloContract.json
 }
 ```
 
-### Add a function
+### Ajouter une fonction
 
 ```
 scaf add func <contract_name> <function_name> [type0] [parameter0] [type1] [parameter1] ...
 ```
 
-The above command adds a function named `hello` to `helloContract` class. `string p0` means function `hello` has one parameter with type `string` and name `p0`.
+La commande ci-dessus ajoute une fonction nommée `hello` à la classe `helloContract`. `string p0` signifie que la fonction `hello` a un paramètre de type `string` nommé `p0`.
 
-The type of parameter should be one of ['string', 'number', 'bool', 'json']
+Le paramètre doit être d'un des types suivants ['string', 'number', 'bool', 'json']
 
-function `hello(p0)` and its corresponding ABI infomation is added into `helloContract.js` and `helloContract.json`.
+La fonction `hello(p0)` et ses informations ABI correspondantes sont ajoutées à `helloContract.js` et `helloContract.json`.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ scaf add func helloContract hello string p0
@@ -146,7 +146,7 @@ add abi hello to ./abi/helloContract.json
 }
 ```
 
-Now edit `contract/helloContract.js` to implement function `hello(p0) {}`
+A présent éditer `contract/helloContract.js` afin d'implémenter `hello(p0) {}`
 
 ```js
 hello(p0) {
@@ -156,17 +156,17 @@ hello(p0) {
 }
 ```
 
-In the function `hello(p0)`, we log the result of two system functions, `BlockChain.transfer()` and `BlockChain.blockInfo()`.
+Dans cette fonction `hello(p0)`, nous enregistrons le résultat de deux fonctions systèmes, `BlockChain.transfer()` et `BlockChain.blockInfo()`.
 
-Since system functions are mocked, they will always return the same valid results.
+Comme les fonctions systèmes sont imitées, elles retourneront toujours des résultats valides.
 
-### Add a test
+### Ajouter un test
 
 ```
 scaf add test <contract_name> <test_name>
 ```
 
-This command adds a test named test1 for `helloContract` contract. `helloContract_test1.js` is created in `test/` with just one `require` statement.
+Cette commande ajoute un test nommé test1 pour le contrat `helloContract`. `helloContract_test1.js` est créé dans `test/` avec une simple déclaration `require`.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ scaf add test helloContract test1
@@ -175,7 +175,7 @@ create file: ./test/helloContract_test1.js
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ cat test/helloContract_test1.js
 var helloContract = require('../contract/helloContract.js');
 ```
-Now edit test/helloContract_test1.js
+Editer test/helloContract_test1.js
 ```js
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ cat test/helloContract_test1.js
 var helloContract = require('../contract/helloContract.js');
@@ -184,13 +184,13 @@ var ins0 = new helloContract();
 ins0.hello("iost");
 ```
 
-### Run test
+### Exécuter le test
 
 ```
 scaf test <contract_name>
 ```
 
-This command will run all the tests of specific contract.
+Cette commande exécute tous les tests d'un contrat spécifié.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ scaf test helloContract
@@ -201,13 +201,13 @@ transfer  a b 100
 hello  iost
 ```
 
-### Compile the contract
+### Compiler le contract
 
 ```
 scaf compile <contract_name>
 ```
 
-This command compiles contract file and the ABI file is created in `build/`. You can upload these files to an IOST blockchain.
+Cette commande compile le fichier contrat et le fichier ABI est créé dans `build/`. Vous pouvez uploader ces fichier sur la blockchain IOST.
 
 ```console
 usr@Tower [master]:~/nodecode/dapp/helloBlockChain$ scaf compile helloContract
