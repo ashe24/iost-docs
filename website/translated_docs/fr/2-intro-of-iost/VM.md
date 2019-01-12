@@ -4,41 +4,41 @@ title: VM
 sidebar_label: VM
 ---
 
-We believe a good implementation of virtual machine needs to be both elegantly designed, easy to use, and secure. After comparing the pros and cons of EVM, EOS, C Lua and V8, we have fundamentally resolved unreasonable designs of EVM and EOS. We have managed to build the IOST VM based on V8 due to on the its high performance on Chrome.
+Nous pensons qu'une bonne implémentation d'une machine virtuelle doit être à la fois élégante, facile à utiliser et sécurisée. Après avoir comparé les avantages et les inconvénients de EVM, EOS, C Lua et V8, nous avons réussi à construire la VM IOST basée sur le V8 en raison de ses hautes performances sur Chrome.
 
-## 1. IOST V8VM sturcture and designs
+## 1. Structure et design de la V8VM IOST
 
-VMManager is at the core of V8VM. It has three main features:
+VMManager est au cœur de V8VM. Il a trois fonctionnalités majeures :
 
 ![statedb](assets/2-intro-of-iost/VM/V8VM.png)
-* <font color="#0092ff">VM Entrance. </font>It interfaces external requests from other modules, including RPC requests, block validation, Tx validation, etc. The work is handed off to VMWorker after preprocessing and formatting.
-* <font color="#0092ff">VMWorker lifecycle management. </font>The number of workers are set dynamically based on system load. It achieves reuse of workers. Within the workers, JavaScript hot launch and persistence of hotspot Sandbox snapshots help reduce frequent creation of VMs, and avoid heavy load in CPU and memory when the same code is loaded. This will increase the throughput of the system, allowing the IOST V8VM to breathe even when processing contracts with a massive user base, such as fomo3D.
-* <font color="#0092ff">Management of interface with State database. </font>This ensures atomicity of each IOST transaction, denying the entire transaction when there is an error of insufficient funds. At the same time, two-level cache is achieved in the State database, before being flushed to RocksDB.
+* <font color="#0092ff">VM Entrance. </font>Interface les requêtes externes d'autres modules, y compris les requêtes RPC, la validation de blocs, la validation de Tx, etc. Le travail est transmis à VMWorker après prétraitement et formatage.
+* <font color="#0092ff">VMWorker lifecycle management. </font>Le nombre de workers est défini dynamiquement en fonction de la charge du système. Il permet la réutilisation des workers. Au sein des workers, le lancement à chaud de JavaScript et la persistance des snapshots des hotspot sandbox permettent de réduire la création fréquente de machines virtuelles et d'éviter une charge importante dans le CPU et la mémoire lorsque le même code est chargé. Ceci augmentera le débit du système, permettant au V8VM de respirer même lors du traitement de contrats avec une base d'utilisateurs massive, telle que fomo3D.
+* <font color="#0092ff">Management de l'interface avec la base de données d'état. </font>Ceci assure l'atomicité de chaque transaction IOST, en refusant la transaction entière lorsqu'il y a une erreur de fonds insuffisants. En même temps, le cache à deux niveaux est réalisé dans la base de données d'état, avant d'être vidé vers RocksDB.
 
-## 2. Sandbox core design
+## 2. Core Design de le Sandbox
 
 ![statedb](assets/2-intro-of-iost/VM/sandbox.png)
 
-As the payload of JavaScript smart contract execution, Sandbox interfaces with V8VM, and packs for calling in Chrome V8. There are two stages, Compile and Execution.
+En tant que charge utile de l'exécution de smart contract JavaScript, la Sandbox s'interface avec V8VM, et package pour les appels dans Chrome V8. Il y a deux étapes, Compiler et Exécuter.
 
-### Compile Stage
+### Etape de compilation
 
-Mainly for smart contract development and publishing, it has two features:
+Principalement pour le développement et la publication de smart contracts, il a deux caractéristiques :
 
 * <font color="#0092ff">Contract Pack. </font>打包智能合约，基于webpack实现，会打包当前合约项目下的所有JavaScript代码，并自动完成依赖安装，使IOST V8VM开发大型合约项目变成可能。同时IOST V8VM和Node.js的模块系统完全兼容，可以无缝使用require、module.exports和exports等方法，赋予合约开发者原生JavaScript开发体验。
-* <font color="#0092ff">Contract Snapshot. </font>With the snapshot technology, compilation increases the performance of creating an isolate and contexts — an anti-serialization of the snapshot will achieve the result in runtime, and tremendously increase loading and execution speed of JavaScript.
+* <font color="#0092ff">Contract Snapshot. </font>Avec la technologie de snapshot, la compilation augmente la performance de la création d'un isolat et des contextes - une anti-sérialisation du snapshot permettra d'obtenir le résultat en temps réel et d'augmenter considérablement la vitesse de chargement et d'exécution du JavaScript.
 
-### Execute Stage
+### Etape d'exécution
 
-Mainly for execution of on-chain contracts, it has two features, too:
+Principalement pour l'exécution des contrats sur chaîne, il a deux caractéristiques :
 
-* <font color="#0092ff">LoadVM. </font>Completes initialization of VM, including the generation of Chrome V8 object, setting system execution parameters, importing relevant JavaScript class libraries, etc. Some JavaScript class libraries include:
+* <font color="#0092ff">LoadVM. </font>Achève l'initialisation de la VM, y compris la génération de l'objet Chrome V8, la définition des paramètres d'exécution du système, l'importation des bibliothèques de classes JavaScript pertinentes, etc. Certaines bibliothèques de classes JavaScript incluent :
 
-| Class Library          | Features   |
+| Class Library          | Fonctions   |
 | --------     | -----  |
-| Blockchain   | Node.js-like modular system, including module caching, pre-compilation, cycle calls, etc.|
-| Event        | Read/write of JavaScript with State Library, and rollback when contracts encounter errors.|
-| NativeModule | Blockchain-related functions including transfer, withdraw and obtaining information on current block and Tx.|
-| Storage      | Implementation of events. JavaScript contracts internal events can receive callbacks after going on-chain.|
+| Blockchain   | Système modulaire semablable à Node.js, incluant le caching de modules, la pré-compilation, cycle calls, etc.|
+| Event        | Lecture/écriture de JavaScript avec la bibliothèque d'état, et rollback lorsque les contrats rencontrent des erreurs.|
+| NativeModule | Fonctions liées à la blockchain, y compris le transfert, le retrait et l'obtention d'informations sur le bloc actuel et le Tx.|
+| Storage      | Implémentation d'événements. Les événements internes des contrats JavaScript peuvent recevoir des rappels après la mise sur chaîne.|
 
-* <font color="#0092ff">Execute. </font>Finally executes JavaScript smart contract. IOST V8VM will run the contract on a standalone thread, monitor the status of the run, and will `Terminate` the current run when there is an error, insufficient resource, or timeout, and return abnormal results.
+* <font color="#0092ff">Exécution. </font>Exécute le contrat intelligent JavaScript. IOST V8VM exécutera le contrat sur un thread autonome, surveillera l'état de l'exécution, et `interrompra` l'exécution en cours lorsqu'il y a une erreur, une ressource insuffisante ou un délai d'attente, et retournera des résultats anormaux.

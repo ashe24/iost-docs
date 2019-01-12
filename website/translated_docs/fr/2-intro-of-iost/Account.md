@@ -1,49 +1,49 @@
 ---
 id: Account
-title: Account
-sidebar_label: Account
+title: Compte
+sidebar_label: Compte
 ---
 
 
-# Account Permission System
+# Système d'autorisations de comptes
 
-## Overview
+## Vue d'ensemble
 
-The account-permission system of IOST is based on the mechanism of public-private key pairs. By setting up owner key and active key, users may conveniently manage multiple account systems, and at the same time, set up new permission and secret weight at will. This enables many customized management functionalities.
+Le système d'autorisation des comptes IOST repose sur le mécanisme des paires de clés publique-privée. En configurant la clé propriétaire et la clé active, les utilisateurs peuvent facilement gérer plusieurs systèmes de comptes et, en même temps, configurer de nouvelles autorisations à volonté. Ceci permet une gestion entièrement personnalisée.
 
-## Basics of Account System
+## Notions de base
 
-An IOST account is created with ID and permissions. An account may have multiple permissions, and has `owner` and `active` permissions at the very least. Each permission will register multiple items, with one item being a public key ID, or a permission pair from another account.
+Un compte IOST est créé avec un ID et des autorisations. Un compte peut avoir des autorisations multiples, et a au moins des autorisations `owner` et `active`. Chaque autorisation contient plusieurs objets, l'un étant l'ID publique, ou une paire d'autorisations d'un autre compte.
 
-Public key is a string of `IOST` prefix + Base58-encoded public key + crc32 validation digit. 
+La clé publique est un string avec le préfixe `IOST` + une clé publique encodée Base58 + digit de validation crc32.
 
-Each item has a certain weight; correspondingly, each permission has a threshold. When a transaction item has a weight larger than the threshold, the transaction assumes that permission.
+Chaque objet à un certain poids ; de même manière, chaque autorisation a un seuil. Quand une transaction a un poids supérieur au seuil, elle présume cette autorisation.
 
-The method of checking item ownership is by checking whether the transaction signatures contain the signature for that certain item's public key (when the item is a public key), or recursively check if the transaction contains the item's account-permission pair (when the item is an account-permission pair).
+La méthode de vérification de propriété est réalisée en contrôlant si la signature de la transaction contient la signature de la clé publique d'un certain objet (quand l'objet est une clé publique), ou en vérifiant de façon récursive si la transaction contient la paire d'autorisation du compte (quand l'objet est une paire d'autorisation de compte).
 
-Generally, smart contracts will present their account ID and permission ID when validating for permissions. The system will check the transaction's signatures, calculate the items' weights and, when the signature satisfies threshold requirements, validate the transaction. Otherwise, validation fails.
+Généralement les smart contracts présenteront leur ID de compte et leur ID d'autorisation lors de la demande d'autorisations. Le système vérifiera les signatures de la transaction, calculera le poids de l'objet, et si la signature répond aux exigences minimales, validera la transaction. Dans le cas contraire la validation échoue.
 
-`active` permission may grant all other permissions except the `owner` permission. `owner` permission grants the same set of permissions, and allows changes to items under `owner` and `active` permissions. `active` permission is required when submitting a transaction.
+L'autorisation `active` peut octroyer toutes les autorisations hormis `owner`. L'autorisation `owner` donne le même set d'autorisations et autorise la modification d'objets sous des autorisations `owner` et `active`. L'autorisation `active` est requise lors de la transmission d'une transaction.
 
-Permissions can operate with groups. You may add permissions to a group, and add items to that group. This way, the items will enjoy all permissions of the group.
+Les autorisations peuvent fonctionner avec des groupes. Vous pouvez ajouter des autorisations à un groupe, et ajouter des éléments à ce groupe. De cette façon, les objets bénéficieront de toutes les autorisations du groupe.
 
-## Account System Usage
+## Utilisation de compte System
 
-With smart contracts, there is a simple API to call.
+Avec un smart contract il faut appeler une simple API.
 
 ```
 BlockChain.requireAuth(id, permission_string)
 ```
 
-This will return a boolean value for you to decide whether the operation should continue.
+Ceci va retourner une valeur booléenne qui permet de décider si l'opération doit continuer ou pas.
 
-Generally, when using Ram and Tokens, you should first check for `active` permission of the user, or the smart contract may throw unexpectedly. Pick a unique string for `permission_string` to minimize the permission.
+Généralement lors de l'utilisation de Ram et de Tokens, il faut d'abord contrôler l'autorisation `active` de l'utilisateur, sinon le smart contract peut se suspendre de façon inattendue. Choisissez un string unique `permission_string` afin de minimiser l'autorisation.
 
-Normally, you should not be requiring `owner` permissions, as users shouldn't be asked for owner key unless when modifying `owner` and `active` permissions.
+Normalement l'autorisation  `owner` ne doit pas être requise, les utilisateurs ne devant pas avoir a donner leurs clés de propriété sauf en cas de modification des autorisations `owner` et `active`.
 
-There is no need to require a transaction sender, as they always have the `active` permission.
+Il n'est pas nécessaire de demander un expéditeur, ceux-ci ayant toujours l'autorisation `active`.
 
-At user-level, only by supplying the signature do we see users adding permissions. Assume two accounts (and assume 1 for all weights and thresholds of the keys):
+Au niveau utilisateur nous ne verrons les ajouts d'autorisations qu'en donnant la signature. Prenons deux comptes (avec des poids et des seuils de 1 pour les clés) :
 
 ```
 User0
@@ -68,21 +68,21 @@ RequireAuth form
 
 Parameters	|Sig key	  |Returns    |Notes
 -----	      |----				|------	    |-------
-User0, perm0		|key2			|true			|Permission granted when signature for public key is provided
-User0, perm0		|key3			|true			|Permission granted when the group signature is provided
-User0, perm0		|key1			|true			|Permissions granted (save for `owner` permission) when `active` key is provided
-User0, perm1		|key7			|true			|key7 provides User1@active permission, thus granting perm1
-User0, owner		|key1			|false		|`active` does not provide `owner` permission
-User0, active		|key0			|true			|`owner` grants all permissions
-User0, perm2		|key4			|false		|Signatures did not reach threshold
-User0, perm2		|key4,key5	|true			|Signatures reached threshold
-User0, perm2		|key3			|true			|Permission group does not calculate and check for threshold
-User0, perm2		|key1			|true			|`active` does not check for threshold
-User0, perm4		|key8			|false		|Can be implemented when calculating permission group's weight
+User0, perm0		|key2			|true			|Autorisation accordée lorsque la signature pour la clé publique est fournie
+User0, perm0		|key3			|true			|Autorisation accordée lorsque la signature du groupe est fournie
+User0, perm0		|key1			|true			|Autorisation accordée quand la clé `active` est fournie
+User0, perm1		|key7			|true			|key7 donne l'autorisation User1@active, accordant donc perm1
+User0, owner		|key1			|false		|`active` ne donne pas l'autorisation `owner`
+User0, active		|key0			|true			|`owner` donne toutes les autorisations
+User0, perm2		|key4			|false		|Les signatures n'ont pas atteint le seuil
+User0, perm2		|key4,key5	|true			|Les signatures ont atteint le seuil
+User0, perm2		|key3			|true			|Le groupe d'autorisation ne se calcule pas et vérifie le seuil
+User0, perm2		|key1			|true			|`active` ne vérifie pas le seuil
+User0, perm4		|key8			|false		|Peut être implémenté lors du calcul du poids du groupe d'autorisations
 
-## Creating and Managing Accounts
+## Creation et gestion de compte
 
-Account management is based on the contract of `account.iost`. The ABI is as follows:
+La gestion de comptes est basée sur le contrat de `account.iost`. L'ABI est comme suit :
 
 ```
 {
@@ -118,7 +118,7 @@ Account management is based on the contract of `account.iost`. The ABI is as fol
       "args": ["string", "string"] // Username, group name
     },
     {
-      "name": "AssignGroup", // Assign item to group
+      "name": "AssignGroup", // Assign objet to group
       "args": ["string", "string", "string", "number"] // Username, group name, public key ID or account_name@permission_name, weight
     },
     {
@@ -137,9 +137,9 @@ Account management is based on the contract of `account.iost`. The ABI is as fol
 }
 ```
 
-Account name are only valid with `[a-z0-9_]`, with a length between 5 and 11. Permission name and group names are only valid with `[a-zA-Z0-9_]` with a length between 1 and 32.
+Les noms valides sont `[a-z0-9_]`, avec une longueur entre 5 and 11. Les noms de groupes et d'autorisations sont composés de `[a-zA-Z0-9_]` avec une longueur entre 1 et 32.
 
-Normally, accounts will need to deposit IOST upon application, or the account may not be used. One way to do this is with `iost.js`:
+Normalement les comptes auront besion de déposer des IOST sur demande, ou le compte ne pourra pas être utilisé. Utiliser `iost.js` :
 
 ```
 newAccount(name, ownerkey, activekey, initialRAM, initialGasPledge) {
@@ -151,6 +151,6 @@ newAccount(name, ownerkey, activekey, initialRAM, initialGasPledge) {
 }
 ```
 
-To optimize account creation process, the fees are deducted as follows: account creation charges GAS from the publisher, and the new account's Ram is paid by the publisher. When the Ram accumulates to the same amount, the publisher receives the Ram back. The created account will then "pay" for the account creation.
+Pour optimiser le processus de création de compte, les frais de création de compte sont déduits comme suit : la création de compte déduit du GAS chez le compte à l'origine de la création, et la Ram du nouveau compte est payée par le créateur. Lorsque le Ram s'accumule jusqu'à atteindre le même montant, le créateur est remboursé de la Ram. Le compte créé "payera" alors pour la création de compte.
 
-When creating an account, you may choose to buy Ram and deposit token for the created account. We recommend deposit at least 10 tokens so that the new account has enough gas to use the network. Deposited GAS should be no less than 10 Tokens to ensure enough GAS to buy resources.
+Lorsque vous créez un compte, vous pouvez choisir d'acheter de la Ram et de déposer des tokens pour le compte créé. Nous recommandons de déposer au moins 10 tokens afin que le nouveau compte dispose de suffisamment de gas pour utiliser le réseau. Le gas déposé ne devrait pas être inférieur à 10 tokens pour assurer suffisamment de gas pour acheter des ressources.

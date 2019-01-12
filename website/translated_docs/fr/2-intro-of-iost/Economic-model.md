@@ -1,7 +1,7 @@
 ---
 id: Economic-model
-title: Economic model
-sidebar_label: Economic model
+title: Modèle économique
+sidebar_label: Modèle économique
 ---
 
 Please wait for the translation

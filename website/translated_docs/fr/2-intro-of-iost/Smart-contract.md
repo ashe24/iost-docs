@@ -4,15 +4,15 @@ title: Smart Contract
 sidebar_label: Smart Contract
 ---
 
-Smart contracts receive and execute transactions within the block, in order to maintain the variables of smart contract insides blockchain and produce irreversible proof. IOST implements general ABI interfaces, plug-and-play multi-language support, and can generate the result of the consensus. This has substantially improved the usability of the blockchain.
+Les smart contracts reçoivent et exécutent des transactions à l'intérieur du bloc, afin de maintenir les variables de la chaîne interne du smart contract et de produire des preuves irréversibles. IOST implémente des interfaces ABI générales, un support multilingue plug-and-play et peut générer le résultat du consensus. Cela a considérablement amélioré la facilité d'utilisation de la blockchain.
 
-## ABI Interface
+## Interface ABI
 
-IOST smart contracts interacts with the network through ABIs.
+Les smart contracts IOST interagissent avec le réseau via des ABIs.
 
-ABIs are JSON-defined information, including the name, parameter types, etc. The supported basic types are `string`, `number`, and `bool`.
+Les ABIs sont des information sous format JSON incluant le nom, le type de paramètre etc. Les types de base supportés sont `string`, `number`, et `bool`.
 
-More complicated data structures can be parsed to JSON string. When calling functions in a smart contract, ABI parameter types should be strictly followed. Otherwise the execution will halt and transaction fees will incur.
+Des structures plus complexes peuvent être converties en JSON. Lors d'appel de fonction dans un smart contract, les types de paramètres ABI doivent être strictement respectés. Autrement l'exécution sera suspendue et les frais de transaction seront prélevés.
 
 ```json
 // example luckybet.js.abi
@@ -33,7 +33,7 @@ More complicated data structures can be parsed to JSON string. When calling func
 }
 ```
 
-Every transaction includes multiple transactional actions, and each action is a call to an ABI. All transactions will generate a strict serial on the chain, preventing double-spend attacks.
+Chaque transaction comprend plusieurs actions transactionnelles et chaque action est un appel à un ABI. Toutes les transactions génèrent une série stricte sur la chaîne, évitant ainsi les attaques à double dépense.
 
 ```golang
 type Action struct {
@@ -43,25 +43,25 @@ type Action struct {
 }
 ```
 
-In a smart contract you can use `BlockChain.call()` to call an ABI interface, and obtain the return value. The system will log the call stack and deny double-spend.
+Dans un smart contract il est possible d'utiliser `BlockChain.call()` pour appeler une interface ABI, et obtenir la valeur en retour. Le système enregistrera l'appel et interdira la double dépense.
 
-## Multi-language Support
+## Support Multilingue
 
-IOST achieved multi-language smart contracts. Currently, we are opening JavaScript with v8 engine, and there are native golang VM modules to handle high-performance transactions.
+IOST a conçu des smart contracts multilingues. Pour le moment nous ouvrons JavaScript avec le moteur v8, et il y a des modules VM golan natifs pour réaliser des transactions hautes performances.
 
-The smart contract engine of IOST consists of three parts: monitor, VM, host. Monitor is the global control unit that gateways ABI calls to the right VM. VM is a virtual machine implementation of smart contracts. Host packs the runtime environments and makes sure the contracts run in the right context.
+Le moteur de smart contract d'IOST est en trois parties : monitor, VM, hôte. Le monitor est l'entité de contrôle globale que les ABI passerelles dirigent vers la bonne VM.La VM est une implémentation sur machine virtuelle des smart contracts. L'höte package l'environnement d'exécution et s'assure que le contrat s'exécute dans le bon contexte.
 
-## Smart Contract Permission System
+## Système d'autorisations du Smart Contract
 
-Transactions support multiple signatures. Within a contract, you can use `RequireAuth()` to check if the current context bears the signature of a certain ID. Calls between smart contracts will relay signature authorizations. For example, if `A.a` calls `B.b`, authorization to `B.b` from a user is implied when `A.a` is called.
+Les transactions supportent les signatures multiples. Au sein d'un contrat, on peut utiliser `RequireAuth()` pour vérifier si le contexte actuel porte la signature d'un ID. Les appels entre Smart Contracts reposeront sur les autorisations par signature. Par exemple si `A.a` appelle `B.b`, l'autorisation pour `B.b` d'un utilisateur est implicite lors `A.a` est appelée.
 
-Smart contracts can check the stack of calling, and answer questions such as "Who invoked this ABI." This allows for certain operations to exist.
+Les smart contracts peuvent vérifier les appels, et répondre à des questions telles que "Qui a appelé cet ABI ?" Ceci permet à certaines opérations d'exister.
 
-Smart contracts have special permissions, such as upgrading and removal. These can be implemented with `can_update()` and `can_destroy()`.
+Les smart contracts ont des autorisations spécifiques telles que la mise à jour ou la suppression. Celles-ci peuvent être implémentées avec `can_update()` et `can_destroy()`.
 
-## Result of a Call
+## Résultat d'un appel
 
-After execution, the smart contract will generate a `TxReceipt` into the block and seek consensus. You can use RPC to track the TxReceipts of on-chain transactions.
+Après on exécution, le smart contract vé générer un `TxReceipt` dans le block et chercher le consensus. Il est possible d'utiliser RPC pour suivre les TxReceipts de transactions on-chain.
 
 ```sh
 $ curl -X GET \

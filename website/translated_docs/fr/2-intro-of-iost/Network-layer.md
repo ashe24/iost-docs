@@ -1,33 +1,33 @@
 ---
 id: Network-layer
-title: Network layer
-sidebar_label: Network layer
+title: Couche réseau
+sidebar_label: Couche réseau
 ---
 
-P2P (Peer-to-Peer) Network, or Peer Network, is a decentralized structure that distributes tasks and workload among peers. In P2P Networks, connected computers are equal to one another, and each node is both a provider and a consumer of resource, service, and contents. In contrast to traditional Client-Server network models, P2P Networks has the advantages of being decentralized, scalable, attack resistant, and private. These advantages ensure the operations of the blockchain system, and are cornerstones of a free, autonomous, and decentralized blockchain.
+Le réseau P2P (Peer-to-Peer), ou Peer Network, est une structure décentralisée qui répartit les tâches et la charge de travail entre pairs. Dans les réseaux P2P, les ordinateurs connectés sont égaux les uns aux autres et chaque nœud est à la fois fournisseur et consommateur de ressources, de services et de contenus. Contrairement aux modèles de réseau client-serveur traditionnels, les réseaux P2P ont l'avantage d'être décentralisés, évolutifs, résistants aux attaques et privés. Ces avantages assurent le fonctionnement du système de la blockchain et sont les pierres angulaires d'une blockchain libre, autonome et décentralisée.
 
-## Design of IOST Network Layer
+## Design de la couche réseau IOST
 
-We aim to build a fully decentralized network topology, with fast discovery of nodes and speedy whole-net broadcasting of transactions and blocks. At the same time, we hope to limit redundancy within the network, and achieve secured data transmission among the nodes. Through research and testing, we have decided to employ the powerful [libp2p](https://github.com/libp2p/go-libp2p) library as our network layer.
+Notre objectif est de construire une topologie de réseau entièrement décentralisée, avec une découverte rapide des nœuds et une diffusion rapide des transactions et des blocs sur tout le réseau. En même temps, nous espérons limiter la redondance au sein du réseau et sécuriser la transmission des données entre les nœuds. Grâce à la recherche et aux tests, nous avons décidé d'utiliser la puissante bibliothèque [libp2p](https://github.com/libp2p/go-libp2p) comme couche réseau.
 
-### Node discovery and connectivity
+### Découverte de nœuds et connectivité
 
-The basic protocol is TCP/IP. To prevent eaves-dropping and unwanted manipulation of data, we secure the data with a TLS layer on top of TCP. To better utilize each and every TCP connection, we adopt stream-multiplexing to send and receive data, dynamically establishing multiple streams between nodes and maximizing the bandwidth.
+Le protocole de base est TCP/IP. Afin d'éviter les écoutes et les manipulations non désirées, nous sécurisons les données avec une couche TLS sur TCP. Pour mieux utiliser chaque connexion TCP, nous adoptons le multiplexage de flux pour envoyer et recevoir des données, en établissant dynamiquement plusieurs flux entre les nœuds et en maximisant la bande passante.
 
-With nodes, we use [Kademlia](https://en.wikipedia.org/wiki/Kademlia) to maintain their gateway tables. The Kademlia algorithm use the XOR value between the IDs of nodes to calculate the distance inbetween. The nodes are put into buckets based on their distances with other peers. When a node is queried, we only need to find the nearest node within the corresponding bucket. With a definite number of queries, we can guarantee the information be found for the node. Kademlia stands out with its speed and versatility.
+Avec les nœuds, nous utilisons [Kademlia](https://en.wikipedia.org/wiki/Kademlia) pour maintenir leurs tables de passerelle. L'algorithme de Kademlia utilise la valeur XOR entre les ID des nœuds pour calculer la distance entre eux. Les nœuds sont placés dans des buckets en fonction de leur distance par rapport aux autres pairs. Lorsqu'un nœud est interrogé, il suffit de trouver le nœud le plus proche dans le bucket correspondant. Avec un nombre défini de requêtes, nous pouvons garantir que l'information sera trouvée pour le nœud. Kademlia se distingue par sa rapidité et sa polyvalence.
 
-### Data transmission
+### Transmission de données
 
-To reduce bandwidth and to speed up data transmission, we serialize all structured data with Protocol Buffer, and compress them with Snappy algorithm. During our tests, this policy reduced the size of the data by over 80%.
+Pour réduire la bande passante et accélérer la transmission des données, nous sérialisons toutes les données structurées avec Protocol Buffer, et les compressons avec l'algorithme Snappy. Au cours de nos tests, cette politique a réduit la taille des données de plus de 80 %.
 
-Broadcasting will result in redundant data transmission, and thus waste of bandwidth and processing power. Many projects prevent indefinite rebroadcasting of data by limiting the "hops" (or how many times certain data have been rebroadcast). The downside of the policy is, a definite number of rebroadcasting can't guarantee the data reach to the entire network, especially when the network is huge. The way EOS handles the problem is, the network layer logs transactions and blocks of each and every node's neighbors, and decides whether to send data to a certain node or not. This design can reduce redundant transmission to some extent, but is not elegant and adds load to storage.
+La diffusion entraînera une redondance dans la transmission des données, et donc un gaspillage de bande passante et de puissance de traitement. De nombreux projets empêchent la rediffusion indéfinie des données en limitant les "sauts" (ou combien de fois certaines données ont été rediffusées). L'inconvénient de cette politique est qu'un nombre défini de rediffusion ne peut pas garantir l'accès aux données à l'ensemble du réseau, surtout lorsque le réseau est immense. La façon dont EOS traite le problème est que la couche réseau enregistre les transactions et les blocs des voisins de chaque nœud et décide d'envoyer ou non des données à un certain nœud. Cette conception peut réduire la transmission redondante dans une certaine mesure, mais elle n'est pas élégante et ajoute de la charge au stockage.
 
-The way we handle this is adopting a filter algorithm to, well, filter duplicate information. After comparing [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter), [Cuckoo Filter](https://brilliant.org/wiki/cuckoo-filter/) and many others, we have decided to go with Bloom. We can achieve duplicate filtering of a million data packets, with only 1.7MB storage and 0.1% false negative. To further reduce redundant data transmission, we have set a special policy for blocks and big transactions: their hash will be broadcast first. The nodes can then use the hash to download missing data.
+La façon dont nous nous y prenons est d'adopter un algorithme de filtrage pour filtrer l'information en double. Après avoir comparé [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter), [Cuckoo Filter](https://brilliant.org/wiki/cuckoo-filter/) et bien d'autres, nous avons décidé de choisir Bloom. Nous pouvons réaliser un double filtrage d'un million de paquets de données, avec seulement 1,7 Mo de stockage et 0,1% de faux négatifs. Pour réduire encore davantage la transmission redondante des données, nous avons mis en place une politique spéciale pour les blocs et les grosses transactions : leur hachage sera diffusé en premier. Les nœuds peuvent alors utiliser le hachage pour télécharger les données manquantes.
 
-### LAN penetration
+### Pénétration du réseau local
 
-We use [UPnP](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) Protocol to achieve LAN penetration. UPnP is different than other policies, such as [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) and [STUN](https://en.wikipedia.org/wiki/STUN); it does not require port exposure without publishing the server. That means you can use your home computer to access our network and communicate with other nodes, without having to use a cloud server.
+Nous utilisons le protocole [UPnP](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) pour la pénétration LAN. UPnP est différent des autres politiques, telles que [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) et [STUN](https://en.wikipedia.org/wiki/STUN) ; il ne nécessite pas d'exposition de port. Cela signifie que vous pouvez utiliser votre ordinateur personnel pour accéder à notre réseau et communiquer avec d'autres nœuds, sans avoir à utiliser un serveur cloud.
 
-## An Easter Egg
+## Un Easter Egg
 
-In the P2P network package of our code repository, there is an `/example` directory. We have created an instant messaging app with our network package. Navigate to the directory, and run `go build` to compile the binary `./example`. Now you can chat with others within the network. Have fun!
+Dans le package réseau P2P de notre répertoire de code vous trouverez un répertoire `/example`. Nous avons créée une application de messagerie instantanée avec notre package réseau. Allez dans le répertoire et exécuter `go build` pour compiler le binaire `./example`. Vous pouvez à présent chatter avec les autres pairs du réseau. Amusez vous bien !
