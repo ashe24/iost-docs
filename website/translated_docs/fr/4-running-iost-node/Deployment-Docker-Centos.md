@@ -1,28 +1,28 @@
 ---
 id: Deployment-Docker-Centos
-title: Deployment Docker Centos
-sidebar_label: Deployment Docker Centos
+title: Déploiement Centos Docker
+sidebar_label: Déploiement Centos Docker
 ---
 
-## Install Centos 7 
+## Installer Centos 7
 
-Download or Deploy Centos 7 minimal ,  their maybe differences in configurations of Centos 7 images available from Amazon, Google, Azure. This document is based on a default Centos 7 minimal install.
+Télécharger ou déployer Centos 7 minimal, il peut exister des différences dans les images proposées par Amazon, Google, Azure. Ce document est basé sur l'utilisation de Centos 7 minimum.
 
-You can download Centos from https://www.centos.org/download/ (ensure you choose Centos 7 minimal)
+Vous pouvez télécharger Centos ici https://www.centos.org/download/ (choisir Centos 7 minimal)
 
-If you are doing a manual install select the minimal ISO and install default settings other than for partitioning, refer to Centos documentation to complete installation. You will want to increase the / from the default size or add a dedicated /var/lib/docker/ partition.
+Si vous effectuez une installation manuelle, sélectionner l'ISO minimal et utiliser les paramètres par défaut sauf pour le partitionnement. Se référer à la documentation Centos pour terminer l'installation. Il est conseillé d'augmenter la taille de / par rapport à la taille par défaut, ou d'ajouter une partition /var/lib/docker/ dédiée.
 
 
 
-## Install Depedencies 
+## Installation des dépendances
 
-To run the docker IOST-NODE image you will need to install a variety of dependencies on the Centos 7 server
+Afin d'exécuter l'image IOST-NODE les dépendances suivantes sont nécessaires
 
 - Git version 2.16+
 - Git LFS 2.6+
 - Docker-CE
 
-It is assumed you will be running the commands as root, it is also assumed you do not have the default docker installed from Centos, if you do please review https://docs.docker.com/install/linux/docker-ce/centos/#uninstall-old-versions
+Il est admis que les commandes sont lancées en tant que root. Il est aussi supposé que vous n'avez pas la version de docker installée par défaut par Centos https://docs.docker.com/install/linux/docker-ce/centos/#uninstall-old-versions
 
 
 ```
@@ -37,18 +37,18 @@ chmod 755 /usr/local/bin/docker-compose
 ```
 
 ## Firewall
-If you are hosting the server in a cloud provider or similar you will need to adjust your ACL/Firewall within the vendors control panel.
+Si vous hébergez le serveur chez un hébergeur cloud ou similaire, vous devrez ajuster votre ACL/Firewall dans le panneau de configuration du fournisseur.
 
-Enable TCP ports 30000:30003 in your vendors firewall.
+Activez les ports TCP 30000:30003 dans le firewall de l'hébergeur.
 
-You will need to update your host firewall, the preference is to use IPTABLES directly as it is simpler to configure then firewalld. On many pre-built images firewalls are entirely disabled (depends who built your image). You can use the following command to see if firewalld is enable.
+Vous devrez mettre à jour votre firewxall hôte, la préférence est d'utiliser directement IPTABLES car il est plus simple à configurer que firewalld. Sur de nombreuses images pré-construites, les firewall sont entièrement désactivés (dépend de qui a construit votre image). Vous pouvez utiliser la commande suivante pour voir si firewalld est activé.
 
 ```
 systemctl status firewalld
 ```
-You may choose to use firewalld if you prefer, the instructions below are to disable firewalld and enable traditional iptables service.
+Vous pouvez utiliser firewalld si vous préférez, les instructions ci-dessous sont pour désactiver firewalld et utiliser le traditionnel iptables à la place.
 
-Disable Firewalld and install and enable Iptables.service
+Désactiver Firewalld et installer puis activer Iptables.service
 ```
 systemctl stop firewalld
 systemctl disable firewalld
@@ -57,40 +57,40 @@ systemctl enable iptables.service
 systemctl start iptables.service
 ```
 
-Enable the necessary ports
+Autoriser les ports nécessaires
 ```
 iptables -I INPUT -p tcp -m tcp --dport 30000:30003 -j ACCEPT
 service iptables save
 ```
 
-If you are using firewalld you can run the following commands to allow the necessary ports
+Si vous utilisez firewalld vous pouvez lancer la commande suivante pour autoriser les ports nécessaires
 ```
 firewall-cmd --permanent --add-port=30000:30003/tcp
 firewall-cmd --reload
 ```
 
-It is highly recommended you adjust your servers firewall to restrict port 22 access to known IP address and/or change the SSHD port and disable sshd password authentication. This is beyond the scope of this document.
+Il est hautement recommandé de restreindre l'accès au port 22 à une ip connue, ou de changer le port SSHD par défaut, ainsi que de désactiver l'authentification par mot de passe.
 
 
 ## Reboot
 
-Reboot your server so you have the latest kernel and libraries correctly loaded in your runtime
+Rebooter le serveur afin d'activer le dernier kernel et que les librairies soient correctement chargées
 
 ```
 reboot
 ```
 
-## Clone go-iost repository
+## Clone go-iost
 
-Run the following command to clone the repository
+Lancer la commande suivante pour cloner le répertoire
 
 ```
 git clone https://github.com/iost-official/go-iost && cd go-iost
 ```
 
-## Checkout the current version
+## Contrôler la version installée
 
-Run the following command modifying the version as approriate to checkout the current version
+Exécuter la commande suivante afin de sélectionner la bonne branche
 
 ```
 git checkout v2.0.0
@@ -98,30 +98,30 @@ git checkout v2.0.0
 
 ## Docker
 
-Ensure Docker is running and enabled on your localhost
+S'assurer que Docker est lancé et activé
 
 ```
 systemctl enable docker
 systemctl start docker
 ```
 
-The following command should return without an error
+La commande suivante devrait s'exécuter sans erreur
 ```
 docker ps
 ```
 
-### Create Data directory
+### Créer le répertoire de données
 
-The data diretory will be mounted to docker container during startup, it is recommended you create a dedicated /data partition on your server that is not the same physical medium as your running server partition. For Amazon this could be a separate EBS volume, the configuration of this is beyond the scope of this document. 
+Le répertoire de données sera monté sur le conteneur docker au démarrage, il est recommandé de créer une partition /data dédiée sur votre serveur qui n'est pas le même support physique que votre partition serveur en cours d'exécution. Pour Amazon, il pourrait s'agir d'un volume EBS séparé, dont la configuration dépasse le cadre du présent document.
 
-The /data/iserver/ directory will be mounted into the container as /var/lib/iserver, this data will be persistent.
+Le répertoire /data/iserver/ sera monté dans le container comme /var/lib/iserver, ces données seront persistentes.
 
-Create directory
+Créer le répertoire
 ```
 mkdir -p /data/iserver/
 ```
 
-Copy necessary files from go-iost into your /data/iserver directory on your host machine, for example
+Copiez les fichiers nécessaires depuis go-iost dans votre répertoire /data/iserver sur votre machine hôte, par exemple
 
 ```
 cp config/{docker/iserver.yml,genesis.yml} /data/iserver/
@@ -130,17 +130,17 @@ cp config/{docker/iserver.yml,genesis.yml} /data/iserver/
 
 ### Pull
 
-Run the following command to pull the image from Docker Hub , see https://hub.docker.com/r/iostio/iost-node , change the version as necessary. The image will automatically be pulled later on but it is worth knowing.
+Exécutez la commande suivante pour extraire l'image de Docker Hub, voir https://hub.docker.com/r/iostio/iost-node, changez la version si nécessaire. L'image sera automatiquement pull plus tard mais cela vaut la peine d'être connu.
 
 ```
 docker pull iostio/iost-node:2.0.0
 ```
 
-### Modify your iserver.yml
+### Modifier votre iserver.yml
 
-Open /data/iserver/iserver.yml with your favorite editor (vi)
+Ouvrir /data/iserver/iserver.yml avec votre éditeur favori (vi)
 
-Setup your account ID and SECRET key, you can generate these at https://explorer.iost.io or using iwallet.
+Renseigner votre ID de compte et votre clé secrète, vous pouvez générer ceux-ci sur https://explorer.iost.io ou avec iwallet.
 ```
 acc:
   id: YOUR_ID
@@ -148,7 +148,7 @@ acc:
   algorithm: ed25519
 ```
 
-To connect to the tesnet you must modify p2p.seednodes
+Afin de se connecter au testnet il faut modifier p2p.seednodes
 ```
 ...
 p2p:
@@ -160,8 +160,7 @@ p2p:
 ...
 ```
 
-Among the settings, the network IDs of seed nodes can be replaced,
-as shown below:
+Parmi les paramètres, les ID des seed nodes du réseau peuvent être remplacés comme ci-dessous :
 
 | Name   | Region | Network ID                                                                              |
 | ------ | ------ | --------------------------------------------------------------------------------------- |
@@ -169,9 +168,9 @@ as shown below:
 | node-8 | Paris  | /ip4/35.180.171.246/tcp/30000/ipfs/12D3KooWMBoNscv9tKUioseQemmrWFmEBPcLatRfWohAdkDQWb9w |
 
 
-### Modify your genesis.yml
+### Modifier votre genesis.yml
 
-Change genesis settings as below:
+Changer les paramètres genesis :
 
 ```
 creategenesis: true
@@ -225,9 +224,9 @@ initialtimestamp: "2006-01-02T15:04:05Z"
 ```
 
 
-### Run container
+### Lancer le container
 
-Create docker-compose.yml , this could exist anywhere on the server, you could put it in /data/iserver 
+Créer docker-compose.yml, ceci peut exister n'importe où sur le serveur, par exemple dans /data/iserver
 
 ```
 version: "2.2"
@@ -245,33 +244,31 @@ services:
       - /data/iserver:/var/lib/iserver
 ```
 
-To start the node: `docker-compose up -d`
+Pour lancer le nœud : `docker-compose up -d`
 
 
-## Useful commands
+## Commandes utiles
 
-Once your container is running
+Une fois que votre container est lancé
 
-Show current running containers
+Montrer les container lancés
 ```
 docker ps
 ```
 
-Using the container ID from above you can run further commands
+A l'aide de l'ID du container vous pouvez lancer les commandes suivantes
 
-Show logs
+Afficher les logs
 ```
 docker logs -f CONTAINER-ID
 ```
 
-Enter container in TTY
+Entrer dans le container dans TTY
 ```
 docker container exec -ti CONTAINER-ID bash
 ```
 
-Once you are in the container you can run iwallet
+Une fois dans le container vous pouvez lancer iwallet
 ```
 ./iwallet state
 ```
-
-

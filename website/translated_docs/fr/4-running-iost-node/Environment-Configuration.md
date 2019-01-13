@@ -1,19 +1,19 @@
 ---
 id: Environment-Configuration
-title: Environment & Configuration
-sidebar_label: Environment & Configuration
+title: Environnement & Configuration
+sidebar_label: Environnement & Configuration
 ---
 
-## Prerequisites
+## Prérequis
 
-* Go 1.9 or newer (Go 1.11 recommended)
-* `git-lfs` (v2.5.2 recommended)
-* Rocksdb v5.14.3 or newer
-* Docker v18.06.0-ce or newer (older versions are not tested)
+* Go 1.9 ou plus récent (Go 1.11 recommendé)
+* `git-lfs` (v2.5.2 recommendé)
+* Rocksdb v5.14.3 ou plus récent
+* Docker v18.06.0-ce ou plus récent (versions plus anciennes non testées)
 
-## Environment
+## Environnement
 
-Currently, you can develop and deploy on below environments:
+Il est possible de développer et déployer dans les environnements suivants :
 
 * [Mac OS X](#mac-os-x)
 * [Ubuntu/Linux](#ubuntu-linux)
@@ -21,20 +21,20 @@ Currently, you can develop and deploy on below environments:
 
 ## Mac OS X
 
-### Installing git-lfs
+### Installer git-lfs
 
 ```
 brew install git-lfs
 git lfs install
 ```
 
-### Installing rocksdb
+### Installer rocksdb
 
 ```
 brew install rocksdb
 ```
 
-### Compiling and unit tests
+### Compiler et tests
 
 ```
 git clone git@github.com:iost-official/go-iost.git
@@ -44,14 +44,14 @@ make test
 
 ## Ubuntu/Linux
 
-### Installing git-lfs
+### Installer git-lfs
 
 ```
 brew install git-lfs
 git lfs install
 ```
 
-### Installing rocksdb
+### Installer rocksdb
 
 ```
 apt install -y libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev
@@ -59,7 +59,7 @@ git clone -b "v5.14.3" https://github.com/facebook/rocksdb.git && \
 cd rocksdb && make static_lib && make install-static
 ```
 
-### Compiling and unit tests
+### Compiler et tests
 
 ```
 git clone git@github.com:iost-official/go-iost.git
@@ -69,17 +69,17 @@ make test
 
 ## Docker
 
-### Installing docker
+### Installer docker
 
 #### Mac OS X
 
-Refer to [Official Documents](https://docs.docker.com/docker-for-mac/install/) to install on Mac OS X.
+Se référer à [Official Documents](https://docs.docker.com/docker-for-mac/install/) pour l'installation sur Mac OS X.
 
 #### Ubuntu/Linux
 
-Refer to [Official Documents](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository) to install on Ubuntu.
+Se référer à  [Official Documents](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository) pour l'installation sur Ubuntu.
 
-### Compiling and unit tests
+### Compiler et tests
 
 ```
 git clone git@github.com:iost-official/go-iost.git

@@ -1,24 +1,22 @@
 ---
 id: Design-Tech-data
-title: Lucky Bet Smart Contract
-sidebar_label: Lucky Bet Smart Contract
+title: Smart Contract Lucky Bet
+sidebar_label: Smart Contract Lucky Bet
 ---
 
-## Summary
+## Sommaire
 
-The tutorial is designed to demonstrate smart contract coding and deployment. 
+Le tutoriel est conçu pour démontrer l'écriture et le déploiement de smart contracts.
 
-It will give you instructions to deploy one IOST node locally(just for development, not connecting to the actual chain). Then a smart contract(a gambling game named 'Lucky Bet') will be deployed onto the node.
+Il vous donnera les instructions pour déployer un nœud IOST localement (juste pour le développement, pas pour se connecter à la chaîne réelle). Ensuite, un smart contract (un jeu de hasard nommé 'Lucky Bet') sera déployé sur le nœud.
 
-The tutorials contains 3 parts. Part1 lists the step-by-step commands to deploy and run the smart contract. Part2 explains the contract javascript code. Part3 will give some details about the deployment and running instructions.
+Les tutoriels contiennent 3 parties. La partie 1 énumère les commandes étape par étape pour déployer et exécuter le smart contract. La partie 2 explique le code javascript du contrat. La partie 3 donne quelques détails sur le déploiement et les instructions d'utilisation.
 
-The readers are assumed to have basic knowledge of programming and blockchain.
-Following instructions are all run on Ubuntu 16.04.  
+Les lecteurs sont supposés avoir des connaissances de base en programmation et en blockchain.
+Les instructions suivantes sont toutes exécutées sur Ubuntu 16.04.
 
-## Lucky Bet Rules
+## Règles
 
-1. IOST Accounts can make a lucky bet with 1-5 IOST. Each bet is on a number of 0-9.
-2. When there are 100 bets, the number is revealed. Winners split 95% of all the stakes, and the rest 5% are taken as transaction fees.
-3. The Lucky Number is Block Height mod 10. If the last Lucky Number's block is not at least 16 blocks away, we requires the parent hash of the block to have 0 when modded by 16. Otherwise we do not reveal a lucky number.
-
-
+1. Les comptes IOST peuvent parier avec 1-5 IOST. Chaque pari est sur un nombre de 0-9.
+2. Après 100 paris, le résultat est révélé. Les gagnants partagent 95% des mises, et les 5% restants sont des frais de transaction.
+3. Le numéro gagnant est le numéro de block mod 10.

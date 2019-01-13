@@ -4,13 +4,13 @@ title: iWallet
 sidebar_label: iWallet
 ---
 
-**IOSBlockchain** has two programs: `iServer` is the core program and multiple `iServer` forms the blockchain network. `iWallet` is a command line tool to interact with `iServer` blockchain.
+**IOSBlockchain** a deux programmes : `iServer` est le programme principale et les multiples `iServer` forment le réseau blockchain. `iWallet` est un outil en ligne de commande pour interagir avec la blockchain `iServer`.
 
-After successfully `build`ing the system, `iWallet` is in the `target/` folder in the project directory.
+Après avoir `build` le système avec succès, `iWallet` est dans le répertoire `target/`.
 
 ![iwallet1](assets/4-running-iost-node/iWallet/iwallet.png)
 
-## Commands
+## Commandes
 
 |Command      |Contents                                |Description
 |:-----------:|:--------------------------------------:|:--------------------------------------------|
@@ -25,11 +25,11 @@ After successfully `build`ing the system, `iWallet` is in the `target/` folder i
 |sign         |Sign to .sc file                        |  ./iwallet sign -k ~/.iwallet/id_ed25519 ./test.sc
 |transaction  |find transaction by transaction hash    |  ./iwallet transaction HUVdKWhstUHbdHKiZma4YRHGQZwVXerh75hKcXTdu39t
 
-## Command Examples
+## Exemples de commandes
 
 ### help:
 
-Look up `iwallet` helping information
+Affiche l'aide sur `iwallet`
 
 ```
 ./iwallet -h
@@ -37,7 +37,7 @@ Look up `iwallet` helping information
 
 ### account:
 
-Create an IOST accouunt, with corresponding public and private keys saved in the `~/.iwallet/` directory.
+Créé un compte IOST avec les clés publiques et privées correspondantes sauvegardées dans le répertoire `~/.iwallet/`.
 
 ```
 ./iwallet account -n id
@@ -48,7 +48,7 @@ IOSTPVgmuin4vxcqxLvNQ2XnRxPk64MtDkanQEZ4ttkysbjPD6XiW
 
 ### balance:
 
-Look up account balance:
+Vérifier le solde du compte :
 
 ```
 ./iwallet balance IOSTPVgmuin4vxcqxLvNQ2XnRxPk64MtDkanQEZ4ttkysbjPD6XiW
@@ -58,7 +58,7 @@ return:
 
 ### block:
 
-Look up block with hash:
+Rechercher un block avec son hash :
 
 ```
 # 查询0号block数据
@@ -69,7 +69,7 @@ return:
 
 ### call:
 
-You can `call` an on-chain contract's methods.
+Vous pouvez `call` une méthode d'un contrat sur la blockchain.
 
 ```
 # Calls iost.system contract's Transfer method，Account IOSTjBxx7sUJvmxrMiyjEQnz9h5bfNrXwLinkoL9YvWjnrGdbKnBP transfers Account IOSTEj4hBu1b3WwGKscUpcdE7ULtMAPbazt1VeALcvf28CDHc5oAk 100 token,
@@ -82,7 +82,7 @@ ok
 
 ### net:
 
-`net` command obtains the network address of iserver.
+La commande `net` obtient l'adresse réseau d'iserver.
 
 ```
 ./iwallet net
@@ -93,7 +93,7 @@ netId: 12D3KooWNdJgdRAAYoHvrYgCHhNEXS9p7LshjmJWJhDApMXCfahk
 
 ### transaction:
 
-`transaction` command is used for look-ups
+`transaction` est utilisée pour les recherches
 
 ```
 ./iwallet transaction 8LaUT2gbZeTG8Ev988DELNjCWSMQ369uGHAhUUWEHxuV
@@ -104,4 +104,4 @@ txRaw:<time:1537540108548894481 expiration:1537540158548891677 gasLimit:1000 gas
 
 ### compile/publish/sign:
 
-Please refer to [Deployment-and-invocation](../3-smart-contract/Deployment-and-invocation)
+Se référer à [Déploiement et appel](../3-smart-contract/Deployment-and-invocation)

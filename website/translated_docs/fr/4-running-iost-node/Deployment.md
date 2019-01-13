@@ -1,12 +1,12 @@
 ---
 id: Deployment
-title: Deployment
-sidebar_label: Deployment
+title: Déploiement
+sidebar_label: Déploiement
 ---
 
-## Get repo
+## Récupérer le répertoire
 
-Run the command to get the repository:
+Lancer la commande pour récupérer le répertoire
 
 ```
 git clone https://github.com/iost-official/go-iost.git && cd go-iost
@@ -14,7 +14,7 @@ git clone https://github.com/iost-official/go-iost.git && cd go-iost
 
 ## Build
 
-Run the command to compile and generate file in the `target` directory:
+Exécuter la commande pour compiler and générer le fichier dans le répertoire `target` :
 
 ```
 git checkout v2.0.0
@@ -22,9 +22,9 @@ make vmlib
 make build
 ```
 
-## Run
+## Exécuter
 
-Run the command to start a local node. Check iServer config here: [iServer](iServer).
+Exécuter la commande pour lancer le nœud local. Pour la configuration de iServer voir ici : [iServer](iServer).
 
 ```
 ./target/iserver -f config/iserver.yml
@@ -32,17 +32,17 @@ Run the command to start a local node. Check iServer config here: [iServer](iSer
 
 ## Docker
 
-### Run
+### Lancement
 
-Run the command to start a local node using docker:
+Exécuter la commande suivante pour lancer le nœud local avec docker :
 
 ```
 docker run -d iostio/iost-node:2.0.0
 ```
 
-### Mount volume
+### Monter un volume
 
-Using `-v` flag to mount a volume:
+Utiliser le paramètre `-v` pour monter un volume :
 
 ```
 mkdir -p /data/iserver
@@ -50,17 +50,17 @@ cp config/{docker/iserver.yml,genesis.yml} /data/iserver/
 docker run -d -v /data/iserver:/var/lib/iserver iostio/iost-node:2.0.0
 ```
 
-### Bind port
+### Redirection de ports
 
-Using `-p` flag to map the ports:
+Utiliser le paramètre `-p` pour mapper les ports :
 
 ```
 docker run -d -p 30000:30000 -p 30001:30001 -p 30002:30002 -p 30003:30003 iostio/iost-node:2.0.0
 ```
 
-### Using docker-compose
+### Utiliser docker-compose
 
-It's recommended to deploy using docker-compose:
+Il est recommander de déployer à l'aide de docker-compose :
 
 ```
 # docker-compose.yml
@@ -80,13 +80,13 @@ services:
       - /data/iserver:/var/lib/iserver
 ```
 
-To start the node: `docker-compose up -d`
+Pour lancer le nœud : `docker-compose up -d`
 
-## Access the Testnet
+## Accéder au Testnet
 
-### Update config
+### Mise à jour de la config
 
-Change genesis settings as below:
+Changer les paramètres genesis comme ci-dessous below:
 
 ```
 creategenesis: true
@@ -139,7 +139,7 @@ foundationinfo:
 initialtimestamp: "2006-01-02T15:04:05Z"
 ```
 
-Change section `p2p.seednodes` in `iserver.yml` as below:
+Changer la section `p2p.seednodes` dans `iserver.yml` comme ci-dessous :
 
 ```
 ...
@@ -152,17 +152,16 @@ p2p:
 ...
 ```
 
-Among the settings, the network IDs of seed nodes can be replaced,
-as shown below:
+Parmi les paramètres, les ID des seed nodes du réseau peuvent être remplacés comme ci-dessous :
 
 | Name   | Region | Network ID                                                                              |
 | ------ | ------ | --------------------------------------------------------------------------------------- |
 | node-7 | London | /ip4/35.176.129.71/tcp/30000/ipfs/12D3KooWSCfx6q7w8FVg9P8CwREkcjd5hihmujdQKttuXgAGWh6a |
 | node-8 | Paris  | /ip4/35.180.171.246/tcp/30000/ipfs/12D3KooWMBoNscv9tKUioseQemmrWFmEBPcLatRfWohAdkDQWb9w |
 
-### Run iServer
+### Lancer iServer
 
-Connect to Testnet by runing iServer with updated config:
+Se connecter au Testnet en lançant iServer avec la config à jour :
 
 ```
 ./target/iserver -f config/iserver.yml

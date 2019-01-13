@@ -1,12 +1,12 @@
 ---
 id: Faucet
-title: Faucet - how to get IOST token
-sidebar_label: Faucet - how to get IOST token
+title: Faucet - Comment obtenir des tokens IOST
+sidebar_label: Faucet - Comment obtenir des tokens IOST
 ---
 
-- Open [explorer.iost.io](http://explorer.iost.io/applyIOST)
-- Fill the form with correct information. (The Address is IOST Account Address, if don't have one, click Generate Address.)
-- If the address is generated, you will get a IOST address with private key, please save it carefully. 
-- If the address is not generated, you will get a TxHash indicate the transaction has been verified by the blockchain. 
+- Ouvrir [explorer.iost.io](http://explorer.iost.io/applyIOST)
+- Remplir le formulaire avec des informations correctes. (L'adresse désigne l'adresse du compte IOST, si vous n'en avez pas, cliquer sur Generate Address.)
+- Si l'adresse est générée, vous obtiendrez une adresse IOST avec clé privée, veuillez la sauvegarder soigneusement.
+- Si l'adresse n'est pas générée, vous recevrez un TxHash indiquant que la transaction a été vérifiée par la blockchain.
 
-You can use the IOST address as your account. 
+Vous pouvez utiliser l'adresse IOST comme compte. 

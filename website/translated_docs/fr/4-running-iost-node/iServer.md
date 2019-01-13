@@ -4,23 +4,23 @@ title: iServer
 sidebar_label: iServer
 ---
 
-## Launching iServer
+## Lancer iServer
 
-IOST node service iServer includes consensus, synchronization, transaction pool and network modules. Launch iServer service to deploy IOST nodes.
+Le service de nœud IOST iServer comprend des modules de consensus, de synchronisation, de pool de transactions et de réseau. Lancer le service iServer pour déployer les nœuds IOST.
 
-* To compile the project in the root directory, run the following command and the executables will be saved the `target` directory in the root folder.
+* Pour compiler le projet dans le répertoire root, lancer la commande suivante et les exécutables seront sauvegardés dans le répertoire `target` dans le dossier root.
 
 ```
 make build
 ```
 
-* Use the below command to run the IOST node
+* Utilisez la commande ci-dessous pour lancer le nœud IOST
 
 ```
 ./target/iserver -f ./config/iserver.yml
 ```
 
-* Change ./config/iserver.yml configuration file
+* Modifier ./config/iserver.yml
 
 ```
 acc:
@@ -29,7 +29,7 @@ acc:
   algorithm: ed25519
 ```
 
-* Set node account information
+* Paramétrer les informations de compte du nœud
 
 ```
 genesis:
@@ -40,7 +40,7 @@ genesis:
   votecontractpath: config/
 ```
 
-* Set up genesis block information and witness the block and amount.
+* Configurez les informations du block genesis et noter le block et le montant.
 
 
 ```
@@ -56,7 +56,7 @@ db:
   ldbpath: storage/
 ```
 
-Set up database location.
+Paramétrer le chemin de la base de données
 
 
 ```
@@ -68,7 +68,7 @@ p2p:
   datapath: p2p/
 ```
 
-Set up network information. This requires setting up seed nodes to access the network.
+Paramétrer les informations réseau. Ceci implique la mise en place de seed nodes pour accéder au réseau.
 
 ```
 rpc:
@@ -76,7 +76,7 @@ rpc:
   grpcport: 30002
 ```
 
-Set up RPC ports.
+Paramétrer les ports RPC.
 
 
 ```
@@ -91,7 +91,7 @@ log:
   asyncwrite: true
 ```
 
-Set up logging services.
+Paramétrer les services de logs.
 
 
 ```
