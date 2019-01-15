@@ -9,19 +9,19 @@ sidebar_label: API
 ## /getNodeInfo
 ##### GET
 
-Returns information of the IOST server node  
+Retoune des informations sur le nœud serveur IOST
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getNodeInfo
 ```
 
-### Response  
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -41,16 +41,16 @@ A successful response may look like this:
 }
 ```
 
-Key             |Type       |Description 
+Key             |Type       |Description
 ----                |--         |--
 build\_time |string         |Building time of the 'server' binary
 git\_hash       |string     |Git hash of the 'iserver' binary
 mode            |string     |Current mode of the server. It can be one of 'ModeInit', 'ModeNormal' and 'ModeSync'
-network     |[NetworkInfo](#network)|Network information of the node 
+network     |[NetworkInfo](#network)|Network information of the node
 
 ### NetworkInfo
 
-Key             |Type       |Description 
+Key             |Type       |Description
 ----                |--         |--
 id                  |string         |Node ID in the p2p network
 peer\_count |int32      |Peer count of the node
@@ -58,7 +58,7 @@ peer\_info      |[PeerInfo]|Peer information of the node
 
 ### PeerInfo
 
-Key             |Type       |Description 
+Key             |Type       |Description
 ----                |--         |--
 id                  |string     |ID of the peer
 addr                |struct     |Address of the idx-th peer
@@ -69,19 +69,19 @@ addr                |struct     |Address of the idx-th peer
 ## /getChainInfo
 ##### GET
 
-Returns information of the IOST blockchain  
+Retourne des informations sur la blockchain IOST
 
-### Request 
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getChainInfo
 ```
 
-### Response
+### Réponse
 
-A successful response looks like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -97,7 +97,7 @@ A successful response looks like this:
 }
 ```
 
-Key                     |Type       |Description 
+Key                     |Type       |Description
 ----                        |--         |--
 net\_name           |string     |Network name, such as "mainnet" or "testnet"
 protocol\_version   |string     |iost protocol version
@@ -110,19 +110,19 @@ witness\_list           |repeated string|list of pubkeys for the block productio
 ## /getGasRatio
 ##### GET
 
-Get the GAS multiplier information, so that users may set their desired GAS trading multipliers. We recommend a slightly higher gas ratio than lowest_gas_ratio so that transactions will be published timely.
+Option le multiplieur de GAS permettant aux utilisateurs de définir leur multiplicateurs de trading. Nous recommandons un ratio de gas légèrement supérieur que le ratio minimal (lowest_gas_ratio) afin que les transactions soient publiées rapidement.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getGasRatio
 ```
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -133,7 +133,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 lowest\_gas\_ratio|double|the lowest gas ratio of the most recently packed blocks
 median\_gas\_ratio|double|the median gas ratio of the most recently packed blocks
@@ -142,19 +142,19 @@ median\_gas\_ratio|double|the median gas ratio of the most recently packed block
 ## /getRAMInfo
 ##### GET
 
-Get RAM information for the current blockchain, including usage and price.
+Obtien l'information RAM pour la blockchain actuelle y compris son utilisation et prix.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getRAMInfo
 ```
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -168,7 +168,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 available\_ram  |int64      |RAM available, in byte
 used\_ram       |int64      |The amount of RAM sold, in byte
@@ -184,23 +184,23 @@ sell\_price         |double |The selling price of RAM, in IOST/byte
 ## /getTxByHash
 ##### GET
 
-Fetches the transaction by its base58 encoded hash  
+Récupère la transaction à partir de son hash encodé en base58
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getTxByHash/6eGkZoXPQtYXdh7dBSXe2L1ckUCDj4egRn4fXtS2ACnR
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |hash of the transaction
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -228,14 +228,14 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 status              |enum       |PENDING- transaction is cached, PACKED - transaction is in reversible blocks, IRREVERSIBLE - transaction is in irreversible blocks
 transaction     |Transaction|Transaction data
 
 ### Transaction
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |transaction's hash
 time                    |int64      |timestamp of the transaction
@@ -252,7 +252,7 @@ tx_receipt      |TxReceipt|the receipt of the transaction Action
 
 ### Action
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 contract            |string     |contract name
 action_name |string     |function name of the contract
@@ -260,14 +260,14 @@ data                    |string     |Specific parameters of the call. Put every 
 
 ### AmountLimit
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 token               |string     |token name
 value               |double |corresponding token limit
 
 ### TxReceipt
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 tx_hash         |string     |hash of the transaction
 gas_usage       |double |GAS consumption of the transaction
@@ -279,34 +279,34 @@ receipts            |repeated Receipt|for event functions
 
 ### Receipt
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 func_name       |string     |ABI function name
 content         |string     |content
 
-<!-- CONTINUE HERE: http://developers.iost.io/docs/zh-CN/next/6-reference/API/#gettxreceiptbytxhash-hash -->
+<!-- CONTINUER ICI : http://developers.iost.io/docs/zh-CN/next/6-reference/API/#gettxreceiptbytxhash-hash -->
 
 
 ## /getTxReceiptByTxHash/{hash}
 ##### GET
 
-Get transaction receipt data with transaction hash.
+Obtient le reçu de la transaction à partir du hash.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getTxReceiptByTxHash/6eGkZoXPQtYXdh7dBSXe2L1ckUCDj4egRn4fXtS2ACnR
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |hash of the receipt
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -328,7 +328,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
                         |TxReceipt|receipt of the transaction
 
@@ -338,24 +338,24 @@ Key                 |Type       |Description
 ## /getBlockByHash/{hash}/{complete}
 ##### GET
 
-Get block information with block hash.
+Obtient l'information sur le block à partir du hash.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getBlockByHash/4c9GHyGLi6hUqB4d6zGFcywycYKucsmWsbgvhPe31GaY/false
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |block hash
 complete            |bool       |true - show detailed transactions within the block; false - don't.
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -379,14 +379,14 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 status              |enum       |PENDING - block is in cache; IRREVERSIBLE - block is irreversible.
 block               |Block      |a Block struct
 
 ### Block
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |block hash
 version         |int64      |block version number
@@ -402,7 +402,7 @@ transactions    |repeated Transaction   |all the transactions.
 
 ### Info
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 mode                |int32      |mode of concurrency; 0 - non-concurrent; 1 - concurrent
 thread              |int32      |the thread count of transaction concurrent execution
@@ -412,25 +412,25 @@ batch_index |repeated int32 |indices of the transaction
 ## /getBlockByNumber/{number}/{complete}
 ##### GET
 
-Get block information using the block number.
+Otenir les infos de block à l'aide du numéro de block.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getBlockByNumber/3/false
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 number          |int64      |block number
 complete            |bool       |true - display transactions of the block; false - don't.
 
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -454,7 +454,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 status              |enum       |PENDING - block is in cache; IRREVERSIBLE - block is not reversible
 block               |Block      |the block struct
@@ -468,25 +468,25 @@ block               |Block      |the block struct
 ## /getAccount/{name}/{by_longest_chain}
 ##### GET
 
-Get account information.
+Obtenir les informations de compte
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getAccount/admin/true
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 name                |string     |the block number
 by\_longest\_chain  |bool   |true - get data from the longest chain; false - get data from irreversible blocks
 
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -538,7 +538,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 name                |string     |account name
 balance         |double |the balance of the account
@@ -551,7 +551,7 @@ frozen\_balances    |repeated FrozenBalance |information on the frozen balance
 
 ### GasInfo
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 current\_total  |double |Total gas for the moment
 transferable\_gas   |double |Gas available for trade
@@ -562,14 +562,14 @@ pledged\_info   |repeated PledgeInfo    |The information on deposit made by othe
 
 ### PledgeInfo
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 pledger         |string     |the account receiving the deposit
 amount          |double |the amount of the deposit
 
 ### RAMInfo
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 available           |int64      |RAM bytes available for use
 used           |int64      |RAM bytes used
@@ -577,7 +577,7 @@ total           |int64      |RAM bytes total
 
 ### Permission
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 name                |string     |permission name
 groups              |repeated string    |permission group
@@ -586,7 +586,7 @@ threshold           |int64      |permission threshold
 
 ### Item
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 id                      |string     |permission name or key paid ID
 is_key_pair     |bool       |true - id is a key pair; false - id is a permission name
@@ -595,14 +595,14 @@ permission      |string     |the permission
 
 ### Group
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 name                |string     |name of the group
 items               |repeated Item  |information on the permission group
 
 ### FrozenBalance
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 amount          |double |the amount
 time                    |int64      |the time when the amount is unfrozen
@@ -617,23 +617,23 @@ time                    |int64      |the time when the amount is unfrozen
 
 Get account balance of a specified token.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getTokenBalance/admin/iost/true
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 account         |string     |account name
 token               |string     |token name
 by\_longest\_chain  |bool   |true - get information from the longest chain; false - get data from irreversible blocks
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -644,7 +644,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 balance             |double |the balance
 frozen\_balances    |repeated FrozenBalance |the information on frozen balance
@@ -658,23 +658,23 @@ frozen\_balances    |repeated FrozenBalance |the information on frozen balance
 
 Get contract information using contract ID.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl http://127.0.0.1:30001/getContract/base.iost/true
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 id                      |string     |contract ID
 by\_longest\_chain  |bool   |true - get data from longest chain; false - get data from irreversible blocks
 
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -704,7 +704,7 @@ A successful response may look like this:
 }
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 id                      |string     |contract ID
 code                |string     |the code of the contract
@@ -714,7 +714,7 @@ abis                    |repeated ABI   |the ABIs of the contract
 
 ### ABI
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 name                |string     |interface name
 args                    |repeated string    |arguments of the interface
@@ -727,26 +727,26 @@ amount\_limit   |repeated AmountLimit   |The limits on the amount
 ## /getContractStorage
 ##### POST
 
-Get contract storage data locally.
+Obtenir des données sur le stockage sur contrat.
 
-### Request
+### Requête
 
-A request may look like this:
+Une requête peut ressembler à ça :
 
 ```
 curl -X POST http://127.0.0.1:30001/getContractStorage -d '{"id":"vote_producer.iost","field":"producer00001","key":"producerTable","by_longest_chain":true}'
 ```
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 id                      |string     |ID of the smart contract
 field                   |string     |the values from StateDB; if StateDB\[key\] is a map then it is required to configure field to obtain values of StateDB\[key\]\[field\]
 key                 |struct     |the key of StateDB
 by\_longest\_chain  |bool   |true - get data from the longest chain; false - get data from irreversible blocks
 
-### Response
+### Réponse
 
-A successful response may look like this:
+Une réponse peut ressembler à ça :
 
 ```
 200 OK
@@ -766,23 +766,23 @@ A successful response may look like this:
 ## /sendTx
 ##### POST
 
-Publish the transaction to the node. When the node receives the transaction, it will do a sanity check and return errors if the check fails. If the check passes, the transaction will be added to the transaction pool and return a Hash of the transaction.
+Publier la transaction sur le nœud. Lorsque le nœud reçoit la transaction, il effectue un contrôle d'intégrité et renvoie les erreurs si le contrôle échoue. Si le contrôle est passé, la transaction sera ajoutée au pool de transactions et retournera un Hash de la transaction.
 
-Users may use the hash as an argument of the `getTxByHash` API or the `getTxReceiptByTxHash` API, to look up the transaction state, and check whether execution succeeds.
+Les utilisateurs peuvent utiliser le hash comme argument de l'API `getTxByHash` ou `getTxReceiptByTxHash` afin de rechercher l'état de la transaction et de vérifier si l'exécution succède.
 
-**Notes:**
+**Notes :**
 
-This API requires transaction hash and signature, and is tricky to be called directly.
+Cette API nécessite le hash de transaction et une signature et est compliquée à appeler directement.
 
 <!-- 可能需要更新以下链接 -->
 
-We recommend users send transactions with our [CLI tools](http://developers.iost.io/docs/zh-CN/6-reference/API/iwallet-example).
+Nous recommandons que les utilisateurs utilisent nos [Outils CLI](http://developers.iost.io/docs/zh-CN/6-reference/API/iwallet-example).
 
-Developers may send transactions with [JavaScript SDK](https://github.com/iost-official/iost.js).
+Les développeurs peuvent envoyer des transactions avec le [SDK JavaScript](https://github.com/iost-official/iost.js).
 
-### Request Parameters
+### Paramètres de requête
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 time                    |int64      |Time of the transaction generation, in nanoseconds, from UnixEpoch-zero.
 expiration      |int64      |The time when the transaction expires, in nanoseconds since UnixEpoch-zero. If a block-producing node receives the transaction after expiration, it will not execute the transaction.
@@ -799,21 +799,21 @@ signatures      |repeated Signature |Signatures of the signers. Each signers sho
 <!-- 上表中需要提供 URL -->
 
 
-### Response
+### Réponse
 
-Key                 |Type       |Description 
+Key                 |Type       |Description
 ----                    |--         |--
 hash                |string     |the transaction hash
 
 
-### Signing a transaction
+### Signer une transaction
 
-There are three steps to sign a transaction: convert the transaction struct to byte array, calculate sha3 hash of the byte array, and sign this hash with your private key.
+Il y a trois étapes pour signer une transaction : convertir la structure de la transaction en tableau de bits, calculer le hash sha3 du tableau de bits, et signer ce hash avec votre clé privée.
 
-* **Convert transaction struct to byte array**
+* **Convertit la structure de transaction en tableau de bits**
 
-    The algorithm is: convert parameters (in the order of their declaration) into byte arrays, encode them as instructed below, add a <code>\`</code> separator before each item, and concatenate them. Encoding process is listed here:
-    
+    L'algorithme : convertit les paramètres (dans l'ordre de déclaration) en tableau de bits, les encode comme ci-dessous, ajoute des balises <code>\`</code> avant chaque objet et les concatène. Voici le processus d'encodage :
+
     Type    |Conversion Method                          |Example
     ---     |--------------                                 |--------------------
     int     |Convert to byte array with Big-endian  |int64(1023) is converted to \[0 0 0 0 0 0 3 255\]
@@ -821,37 +821,37 @@ There are three steps to sign a transaction: convert the transaction struct to b
     array   |After converting each element of the array into a byte array, put them together and add `^` character before each of them      |\["iost" "iost"\] is converted to \[94 105 111 115 116 94 105 111 115 116\], or "^iost^iost"
     map     |Convert keys and values to byte arrays, splice each key and its value with `<`, add `/` before each item, and concatenate the items in the ascending order of the keys.    |\["b":"iost", "a":"iost"\] converts to \[47 97 60 105 111 115 116 47 98 60 105 111 115 116\], or "/a<iost/b<iost"
 
-    For int and strings, you need to encode the byte arrays. Add `\` before <code>\`</code>, `^`, `<`, `/`, or `\` to escape these characters. 
+    Pour les int et les strings, il faut encode les tableaux de bits. Ajouter `\` avant <code>\`</code>, `^`, `<`, `/`, ou `\` pour ne pas considérer ces caractères.
 
-    The transaction parameters are "time", "expiration", "gas\_ratio", "gas\_limit", "delay", "signers", "actions", "amount\_limit", and "signatures", so the pseudo-code converting a transaction struct to byte array is:
-    
+    Les paramètres de transactions sont "time", "expiration", "gas\_ratio", "gas\_limit", "delay", "signers", "actions", "amount\_limit", et "signatures", ainsi le pseudo-code convertit une structure de transaction en tableau de bits :
+
     ```
     func TxToBytes(t transaction) []byte {
-            return '`' + Int64ToBytes(t.time) + '`' + Int64ToBytes(t. expiration) + 
+            return '`' + Int64ToBytes(t.time) + '`' + Int64ToBytes(t. expiration) +
         '`' + Int64ToBytes(int64(t.gas_ratio * 100)) + '`' + Int64ToBytes(int64(t.gas_limit * 100)) +     // Node that gas_ratio and gas_limit need to be multiplied by 100 and convert to int64
         '`' + Int64ToBytes(t.delay) + '`' + ArrayToBytes(t.signers) +
         '`' + ArrayToBytes(t.actions) + '`' + ArrayToBytes(t.amount_limit) +
         '`' + ArrayToBytes(t.signatures)
         }
     ```
-    
-    Refer to [go-iost](https://github.com/iost-official/go-iost/blob/develop/core/tx/tx.go#L314) for golang implementation; refer to [iost.js](https://github.com/iost-official/iost.js/blob/master/lib/structs.js#L68) for JavaScript implementation.
-    
-* **Calculate the hash of the byte array with sha3 algorithm**
-    
-    Use the sha3 libraries in your language to calculate hash of the byte array you obtained from the previous step.
-    
-* **Sign the hash with private key**
-    
-    IOST supports two asymmetric encryption algorithms: Ed25519 and Secp256k1. These two algorithms share the same signing process: generate a public-private key pair, and sign the hash from the previous step.
-    
-    The private key of the "publisher\_sigs" must agree with the transaction's "publisher" account. The "signatures" private keys must agrees with the transaction's "signers" accounts. "signatures" is used for multi-layer signing, and is not required; "publisher\_sigs" is required. Fees for transaction execution will be taken out from the publisher's account.
-    
-### Request example
 
-Assume account "testaccount" has a transaction that transfers 100 iost to the account named "anothertest".
+  Se référer à [go-iost](https://github.com/iost-official/go-iost/blob/develop/core/tx/tx.go#L314) pour l'implémentation golang ; se référer à [iost.js](https://github.com/iost-official/iost.js/blob/master/lib/structs.js#L68) pour l'implémentation JavaScript.
 
-* **Construct the transaction**
+* **Calculer le hash du tableau de bits avec l'algorithme sha3**
+
+    Utiliser les librairies sha3 dans votre langage afin de calculer le hash du tableau de bits obtenu. step.
+
+* **Signer le hash avec votre clé privée**
+
+    IOST supporte deux algorithmes de chiffrage asymétriques : Ed25519 et Secp256k1. Ces deux algorithmes partagent le même processus de signature : générer une paire de clé publique/privée et signer le hash de l'étape précédente.
+
+    La clé privée de "publisher\_sigs" doit être en accord avec le compte du créateur de la transaction. Les clés privées de signature doivent être en accord avec les clés du signeur de la transaction. "signatures" est utilisé pour les signatures multi-couches et n'est pas nécessaire ; "publisher\_sigs" est requis. Les frais pour l'exécution des transactions seront prélevées sur le compte du créateur de transaction.
+
+### Requête example
+
+Imaginons que le compte "testaccount" a une transaction qui transfère 100 iost vers le compte "anothertest".
+
+* **Construction de la transaction**
 
     ```
     {
@@ -872,19 +872,19 @@ Assume account "testaccount" has a transaction that transfers 100 iost to the ac
         "signatures": [],
     }
     ```
-    
-* **Calculate hash**
 
-    After serializing and hashing the transaction, we obtain the hash "SEos66QidNOT+xOHYJOGpBs3g6YOPvzh7fujjaINpZA=".
-    
-* **Calculate signature**
+* **Calcul du hash**
 
-    Assume "testaccount" has a public key with ED25519 algorithm, the public key is "9RhdenfTcEsg93gKvRccFYICaug+H0efBpOFLwafERQ=", and the private key is "rwhlQzbvFdtsyZAkE5JkadxhGIhu2eMy+T89GC/7fsH1GF16d9NwSyD3eAq9FxwVggJq6D4fR58Gk4UvBp8RFA==". Sign the hash with the private key and we get "OCc68Q7Jq7DCZ2TP3yGQtWew/JmVzIFSlSOVgcRqQF9u6H3AKmKjuQi1SRtiT/HgmK04cze5XKnkgjXE8uAoAg=="
+    Après avoir sérialisé et hashé la transaction nous obtenons le hash "SEos66QidNOT+xOHYJOGpBs3g6YOPvzh7fujjaINpZA=".
 
-* **Publish transaction**
+* **Calcul de la signature**
 
-    The complete transaction parameter is:
-    
+    Si "testaccount" a une clé publique avec algorithme ED25519, la clé publique est "9RhdenfTcEsg93gKvRccFYICaug+H0efBpOFLwafERQ=", et la clé privée "rwhlQzbvFdtsyZAkE5JkadxhGIhu2eMy+T89GC/7fsH1GF16d9NwSyD3eAq9FxwVggJq6D4fR58Gk4UvBp8RFA==". Signer le hash avec la clé privée donne "OCc68Q7Jq7DCZ2TP3yGQtWew/JmVzIFSlSOVgcRqQF9u6H3AKmKjuQi1SRtiT/HgmK04cze5XKnkgjXE8uAoAg=="
+
+* **Publier la transaction**
+
+    Les paramètres de transaction complets sont :
+
     ```
     {
         "time": 1544709662543340000,
@@ -912,9 +912,9 @@ Assume account "testaccount" has a transaction that transfers 100 iost to the ac
         ],
     }
     ```
-    
-    After we JSON-serialize the struct, we can send the following RPC:
-    
+
+    Ensuite nous sérialisons au format JSON la structure, et envoyons le RPC suivant :
+
     ```
     curl -X POST http://127.0.0.1:30001/sendTx -d '{"actions":[{"actionName":"transfer","contract":"token.iost","data":"[\"iost\", \"testaccount\", \"anothertest\", \"100\", \"this is an example transfer\"]"}],"amount_limit":[],"delay":0,"expiration":1544709692318715000,"gas_limit":50000,"gas_ratio":1,"publisher":"testaccount","publisher_sigs":[{"algorithm":"ED25519","public_key":"9RhdenfTcEsg93gKvRccFYICaug+H0efBpOFLwafERQ=","signature":"OCc68Q7Jq7DCZ2TP3yGQtWew/JmVzIFSlSOVgcRqQF9u6H3AKmKjuQi1SRtiT/HgmK04cze5XKnkgjXE8uAoAg=="}],"signatures":[],"signers":[],"time":1544709662543340000}'
     ```
@@ -923,14 +923,14 @@ Assume account "testaccount" has a transaction that transfers 100 iost to the ac
 ## /execTx
 ##### POST
 
-Send the transaction to the node, and execute immediately. This will not seek consensus on the chain, nor will this transaction persist.
+Envoyer la transaction au noeud et exécuter immédiatement. Ceci ne cherchera pas le consensus sur la chaine, et ne sera pas persistent.
 
-This API is used to check whether a testing contract executes as expected. Obviously, execTx cannot guarantee the same behaviour with an on-chain execution due to different time to call.
+Cette API est utilisée afin de vérifier si un contrat test s'exécute comme attendu. Evidemment execTx ne peut pas garantir le même résultat lors d'une exécution on-chain à cause de la différence de temps.
 
-### Request
+### Requête
 
-This API shares the same set of paramters with /sendTx.
+Cette API partage les mêmes paramètres que /sendTx.
 
-### Response
+### Réponse
 
-This API shares the same response format with /getTxReceiptByTxHash.
+Cette API partage le même format de réponse que /getTxReceiptByTxHash.
