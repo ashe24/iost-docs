@@ -4,19 +4,19 @@ title: IOST
 sidebar_label: IOST
 ---
 
-This is the main class that create transactions to send to IOST blockchain and IOST smart contracts.
+Il s'agit de la classe principale pour créer les transactions à envoyer sur la blockchain IOST et les les smart contracts.
 ## constructor
-constructor method is a special method for creating and initializing IOST class.
+La méthode constructor est spécifique à la création et à l'initialisation de la classe IOST.
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 config |Object         | config object for IOST class, config details as as follows:<br/> <b>gasRatio:</b> transaction gas price <br/> <b>gasLimit:</b> transaction gas limit <br/> <b>expiration:</b> time in seconds that transaction will be expired
 
-### Returns
-IOST object instance.
+### Retourne
+L'instance d'objet IOST
 
-### Example
+### Exemple
 ```javascript
 // init iost sdk
 const iost = new IOST.IOST({ // will use default setting if not set
@@ -27,19 +27,19 @@ const iost = new IOST.IOST({ // will use default setting if not set
 ```
 
 ## callABI
-call contract abi function
+appelle la fonction abi du contrat
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 contract |String         | contract id or contract domain
 abi 	 |String 		 | contract abi function name
 args	 |Array			 | function args array
 
-### Returns
-Transaction Object.
+### Retourne
+L'objet transaction
 
-### Example
+### Exemple
 ```javascript
 const tx = iost.callABI(
 	"token.iost",
@@ -49,10 +49,10 @@ const tx = iost.callABI(
 ```
 
 ## newAccount
-create new IOST blockchain account
+créé un nouveau compte IOST
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 name 			 |String	| new account name
 creator 	 	 |String	| creator account name
@@ -61,10 +61,10 @@ activekey	 	 |String	| creator account activeKey
 initialRAM	 	 |Number	| new account initialRAM, paid by creator
 initialGasPledge |Number	| new account initialGasPledge, paid by creator
 
-### Returns
-Transaction Object.
+### Retourne
+l'objet transaction
 
-### Example
+### Exemple
 ```javascript
 // first create KeyPair for new account
 const newKP = KeyPair.newKeyPair();
@@ -80,10 +80,10 @@ const newAccountTx = iost.newAccount(
 ```
 
 ## transfer
-transfer tokens to designated account, wrapper for callABI
+transfère  tokens to designated account, wrapper for callABI
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 token		|String	| new account name
 from 	 	|String	| creator account name
@@ -91,10 +91,10 @@ to			|String	| creator account ownerKey
 amount	 	|String	| creator account activeKey
 memo	 	|Number	| new account initialRAM, paid by creator
 
-### Returns
+### Retourne
 Transaction Object.
 
-### Example
+### Exemple
 ```javascript
 const tx = iost.transfer("iost", "fromAccount", "toAccount", "10.000", "memo");
 ```

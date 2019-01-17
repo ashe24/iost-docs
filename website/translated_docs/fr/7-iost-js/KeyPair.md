@@ -4,54 +4,54 @@ title: KeyPair
 sidebar_label: KeyPair
 ---
 
-This is the main class that used to create IOST account keyPairs.
+Ceci est la classe principale pour la création de paires de clé IOST.
 
 ## constructor
-constructor method is a special method for creating and initializing KeyPair class.
+La méthode constructor est spécifique à la création et à l'initialisation de la classe KeyPair.
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 priKeyBytes |Buffer         | private key
 algType |Number         | [Algorithm](#algorithm).Secp256k1 or [Algorithm](#algorithm).Ed25519
 
 #### Algorithm
-Name             |Type       |Description 
+Name             |Type       |Description
 ----                |--         |--
 Secp256k1 |Number         | 1
 Ed25519 |Number         | 2
 
-### Returns
-KeyPair object instance.
+### Retourne
+Instance d'objet KeyPair.
 
-### Example
+### Exemple
 ```javascript
 const kp = new KeyPair(bs58.decode('2yquS3ySrGWPEKywCPzX4RTJugqRh7kJSo5aehsLYPEWkUxBWA39oMrZ7ZxuM4fgyXYs2cPwh5n8aNNpH5x2VyK1'));
 ```
 
 ## newKeyPair
-newKeyPair create new public/private key pair
+newKeyPair créé une nouvelle paire de clés publique/privée
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 algType |Number         | [Algorithm](#algorithm).Secp256k1 or [Algorithm](#algorithm).Ed25519
 
-### Returns
-KeyPair object instance.
+### Retourne
+L'instance d'objet KeyPair.
 
-### Example
+### Exemple
 ```javascript
 const kp = KeyPair.newKeyPair(Algorithm.Ed25519);
 ```
 
 ## B58SecKey
-B58SecKey return current KeyPair's base 58 encode secret key.
+B58SecKey retourne la clé secrète actuelle en base 58.
 
-### Returns
-return current KeyPair's base 58 encode secret key.
+### Retourne
+retourne la clé secrète actuelle en base 58.
 
-### Example
+### Exemple
 ```javascript
 const kp = KeyPair.newKeyPair(Algorithm.Ed25519);
 console.log(kp.B58SecKey())
@@ -59,12 +59,12 @@ console.log(kp.B58SecKey())
 
 ## B58PubKey
 
-B58SecKey return current KeyPair's base 58 encode public key.
+B58SecKey retourne la clé publique actuelle en base 58.
 
-### Returns
-return current KeyPair's base 58 encode public key.
+### Retourne
+retourne la clé publique actuelle en base 58.
 
-### Example
+### Exemple
 ```javascript
 const kp = KeyPair.newKeyPair(Algorithm.Ed25519);
 console.log(kp.B58PubKey())

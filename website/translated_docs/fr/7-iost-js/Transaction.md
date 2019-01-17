@@ -4,29 +4,30 @@ title: Transaction
 sidebar_label: Transaction
 ---
 
-This is the main class that interact with IOST blockchain and IOST smart contracts to send and get transactions from them.
+Ceci est la classe principale qui interagit avec la blockchain IOST et ses smart contracts afin d'envoyer et recevoir des transactions de ceux-cis.
 
 ## constructor
-constructor method is a special method for creating and initializing Transaction class.
-<b>DO NOT</b> need to initialize by user, user will use Transaction class by rpc.transaction.
+La méthode constructor est spécifique à la création et à l'initialisation de la classe transaction.
+
+<b>NE pas</b> initialiser via l'utilisateur. L'utilisateur utilisera la classe transaction via rpc.transaction.
 
 ## getTxByHash
-get tx by hash from blockchain
+obtient le hash de tx de la blockchain
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 hash 		|String          | base58 encode txHash
 
-### Returns
-Promise returns transaction object.
-Name             |Type       |Description 
+### Retourne
+Retourne l'objet transaction.
+Name             |Type       |Description
 ----                |--         |--
 status 		|String          | transaction status
 transaction |Object 		 | [Transaction Object](Blockchain-class#transaction-object)
 
-#### Transaction Object
-Name             |Type       |Description 
+#### Objet Transaction
+Name             |Type       |Description
 ----                |--         |--
 hash 			|String          | transaction hash
 time 			|Number 		 | transaction timestamp
@@ -41,37 +42,37 @@ referred_tx 	|String          | referred transaction hash
 amount_limit	|Array			 | array of [AmountLimit Object](#amountlimit-object)
 tx_receipt 		|Object          | [TxReceipt Object](#txreceipt-object)
 
-#### Action Object
-Name             |Type       |Description 
+#### Objet Action
+Name             |Type       |Description
 ----                |--         |--
 contract 			|String          | contract name
 action_name 			|String 		 | action name
 data 		|String          | data
 
-#### AmountLimit Object
-Name             |Type       |Description 
+#### Objet AmountLimit
+Name             |Type       |Description
 ----                |--         |--
 token 			|String          | token name
 value 			|Number 		 | limit value
 
-#### TxReceipt Object
-Name             |Type       |Description 
+#### Objet TxReceipt
+Name             |Type       |Description
 ----                |--         |--
 tx_hash 			|String          | transaction hash
 gas_usage 			|Number 		 | gas usage
 ram_usage 		|Map          | ram usage
 status_code 		|String          | status code
 message  		|String          | message
-returns 			|Array          | transaction returns
+Retourne 			|Array          | transaction Retourne
 receipts 		|Array           | array of [Receipt Object](#receipt-object)
 
-#### Receipt Object
-Name             |Type       |Description 
+#### Objet Reçu
+Name             |Type       |Description
 ----                |--         |--
 func_name 			|String          | function name
 content 			|String 		 | content
 
-### Example
+### Exemple
 ```javascript
 const rpc = new IOST.RPC(new IOST.HTTPProvider('http://127.0.0.1:30001'));
 rpc.transaction.getTxByHash("5YdA8qPq5N6W47rZV4u31FdbQzeMt2QX9KGj4uPyERZa").then(console.log);
@@ -102,17 +103,17 @@ rpc.transaction.getTxByHash("5YdA8qPq5N6W47rZV4u31FdbQzeMt2QX9KGj4uPyERZa").then
 ```
 
 ## getTxReceiptByTxHash
-get transaction receipt by transaction hash
+obtient le reçu de transaction depuis le hash de transaction
 
-### Parameters
-Name             |Type       |Description 
+### Paramètres
+Name             |Type       |Description
 ----                |--         |--
 hash 		|String          | base58 encode txHas
 
-### Returns
-Promise returns [TxReceipt Object](#txreceipt-object)
+### Retourne
+Retourne [Objet TxReceipt](#txreceipt-object)
 
-### Example
+### Exemple
 ```javascript
 const rpc = new IOST.RPC(new IOST.HTTPProvider('http://127.0.0.1:30001'));
 rpc.transaction.getTxByHash("5YdA8qPq5N6W47rZV4u31FdbQzeMt2QX9KGj4uPyERZa").then(console.log);
@@ -127,7 +128,7 @@ rpc.transaction.getTxByHash("5YdA8qPq5N6W47rZV4u31FdbQzeMt2QX9KGj4uPyERZa").then
 	},
 	"status_code": "SUCCESS",
 	"message": "",
-	"returns": [
+	"Retourne": [
 		"[\"\"]"
 	],
 	"receipts": [
@@ -140,4 +141,4 @@ rpc.transaction.getTxByHash("5YdA8qPq5N6W47rZV4u31FdbQzeMt2QX9KGj4uPyERZa").then
 ```
 
 ## sendTx
-send transaction to IOST blockchain
+envoie la transaction sur la blockchain IOST
