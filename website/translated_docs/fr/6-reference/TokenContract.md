@@ -139,7 +139,7 @@ Obtenir le totalsupply du token
 ---
 
 ### Description
-Token721 contract is used for the creation, distribution, transfer and destruction of non-exchangeable tokens.
+Le contrat token721 est utilisé pour la création, distribution, transfert et destruction de tokens non-échangeables.
 
 ### Info
 | contract_id | token721.iost |
@@ -150,36 +150,36 @@ Token721 contract is used for the creation, distribution, transfer and destructi
 ### API
 
 #### create (tokenSym, issuer, totalSupply)
-Create tokens.
+Création de tokens
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
 | tokenSym | Identifiant du token, unique within the contract | string |
-| issuer | issuer with issuing token rights | string |
-| totalSupply | Total circulation, integer | number |
+| issuer | émetteurs avec droits d'émission | string |
+| totalSupply | Nombre de tokens en circulation, integer | number |
 
 | Return value | None |
 | :----: | :------ |
 
-tokenSym should be 2~16 characters long, consists of a-z, 0-9 and _ characters
+tokenSym doit être composé de 2~16 caractères et consister de a-z, 0-9 et _
 
 #### issue (tokenSym, to, metaData)
-Issue tokens.
+Emettre des tokens
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
 | tokenSym | Identifiant du token | string |
 | to | Destinataire | string |
-| metaData | Meta data for tokens | string |
+| metaData | Metadonnées du token | string |
 
 | Return value | Type |
 | :----: | :------ |
 | tokenID | string |
 
-tokenID is the token identification. In a certain token, the system will generate a specific tokenID for each token issued which won't be duplicated in a certain kind token.
+tokenID  est l'identifiant du token. Pour un token donné, le système va générer un tokenID spécifique pour chaque token émis qui ne sera pas répliqué pour ce type de token.
 
 #### transfer (tokenSym, from, to, tokenID)
-Token transfer.
+Transfert de tokens
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
@@ -192,19 +192,19 @@ Token transfer.
 | :----: | :------ |
 
 #### balanceOf (tokenSym, from)
-Get the token balance.
+Obtenir le solde en tokens
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
 | tokenSym | Identifiant du token | string |
-| from | Token account | string |
+| from | Compte | string |
 
 | Return value | Type |
 | :----: | :------ |
 | Account Balance | number |
 
 #### ownerOf (tokenSym, tokenID)
-Get the owner of a particular token
+Obtenir le propriétaire d'un token donné
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
@@ -216,7 +216,7 @@ Get the owner of a particular token
 | Owner Account | string |
 
 #### tokenOfOwnerByIndex(tokenSym, owner, index)
-Get the index token owned by the account
+Obtenir l'index token appartenant à un compte
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |
@@ -229,7 +229,7 @@ Get the index token owned by the account
 | tokenID | string |
 
 #### tokenMetadata(tokenSym, tokenID)
-Get the meta data of the token
+Obtenir les metadonnées d'un token
 
 | Parameter Name | Parameter Description | Parameter Type |
 | :----: | :----: | :------ |

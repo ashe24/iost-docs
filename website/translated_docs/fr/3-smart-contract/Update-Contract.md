@@ -17,7 +17,7 @@ can_update(data) {
 }
 ```
 
-Lors de la réception d'une requête de mise à jour de contrat, le système va d'abord appeler la fonction can_update(data). data est un paramètre d'entrée facultatif de type string. Si la fonction renvoie true, la mise à jour est effectuée. Si non, une erreur `Update Refused` est renvoyée.
+Lors de la réception d'une requête de mise à jour de contrat, le système va d'abord appeler la fonction can_update(data). data est un paramètre d'entrée facultatif de type string. Si la fonction renvoie true, la mise à jour est effectuée. Si non, une erreur `Mise à niveau refusée` est renvoyée.
 
 Avec l'écriture correcte de cette fonction il est possible d'implémenter une gestion des permissions telle que : seulement mettre à jour lorsque deux personnes l'autorisent en même temps, ou via un vote, etc.
 
